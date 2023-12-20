@@ -25,6 +25,9 @@
 #include <string.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#if defined(GPR_QNX)
+#include <sys/select.h>
+#endif
 
 #include <iostream>
 

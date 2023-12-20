@@ -137,7 +137,7 @@ absl::StatusOr<EventEngine::ResolvedAddress> UnixAbstractSockaddrPopulate(
   un->sun_family = AF_UNIX;
   un->sun_path[0] = '\0';
   path.copy(un->sun_path + 1, path.size());
-#ifdef GPR_APPLE
+#if defined(GPR_APPLE) || defined(GPR_QNX)
   return EventEngine::ResolvedAddress(
       addr, static_cast<socklen_t>(sizeof(un->sun_len) +
                                    sizeof(un->sun_family) + path.size() + 1));

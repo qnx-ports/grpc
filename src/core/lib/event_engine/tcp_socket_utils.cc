@@ -99,7 +99,7 @@ absl::StatusOr<std::string> ResolvedAddrToUnixPathIfPossible(
         absl::StrCat("Socket family is not AF_UNIX: ", addr->sa_family));
   }
   const sockaddr_un* unix_addr = reinterpret_cast<const sockaddr_un*>(addr);
-#ifdef GPR_APPLE
+#if defined(GPR_APPLE) || defined(GPR_QNX)
   int len = resolved_addr->size() - sizeof(unix_addr->sun_family) -
             sizeof(unix_addr->sun_len) - 1;
 #else

@@ -641,6 +641,9 @@ Poller::WorkResult PollPoller::Work(
     EventEngine::Duration timeout,
     absl::FunctionRef<void()> schedule_poll_again) {
   // Avoid malloc for small number of elements.
+  #ifdef QNX_DEBUG
+  std::cout << "PollerWorker::Work: start" << std::endl;
+  #endif
   enum { inline_elements = 96 };
   struct pollfd pollfd_space[inline_elements];
   bool was_kicked_ext = false;
