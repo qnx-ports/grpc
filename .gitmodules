@@ -3,7 +3,8 @@
 	url = https://github.com/abseil/abseil-cpp.git
 [submodule "third_party/benchmark"]
 	path = third_party/benchmark
-	url = https://github.com/google/benchmark
+	url = git@gitlab.rim.net:qnx/osr/benchmark.git
+	branch = QNXOSG-73/benchmark710
 [submodule "third_party/bloaty"]
 	path = third_party/bloaty
 	url = https://github.com/google/bloaty.git

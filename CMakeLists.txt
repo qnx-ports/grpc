@@ -272,6 +272,8 @@ if(UNIX)
     set(_gRPC_PLATFORM_IOS ON)
   elseif(${CMAKE_SYSTEM_NAME} MATCHES "Android")
     set(_gRPC_PLATFORM_ANDROID ON)
+  elseif("${CMAKE_SYSTEM_NAME}" MATCHES "QNX") #FOR QNX, CMAKE_SYSTEM_NAME is set to a variable "QNX"
+    set(_gRPC_PLATFORM_QNX ON)
   else()
     set(_gRPC_PLATFORM_POSIX ON)
   endif()
@@ -336,7 +338,7 @@ else()
   set(_gRPC_CORE_NOSTDCXX_FLAGS "")
 endif()
 
-if(UNIX AND NOT HAIKU)
+if(UNIX AND NOT (HAIKU OR QNX))
   # -pthread does more than -lpthread
   set(THREADS_PREFER_PTHREAD_FLAG ON)
   find_package(Threads)
@@ -347,6 +349,10 @@ if(UNIX AND NOT HAIKU)
       set(_gRPC_ALLTARGETS_LIBRARIES ${_gRPC_ALLTARGETS_LIBRARIES} rt)
     endif()
   endif()
+endif()
+
+if(_gRPC_PLATFORM_QNX)
+  set(_gRPC_ALLTARGETS_LIBRARIES ${CMAKE_DL_LIBS} m)
 endif()
 
 include(CheckCXXSourceCompiles)
@@ -980,7 +986,9 @@ if(gRPC_BUILD_TESTS)
   add_dependencies(buildtests_cxx cancel_after_client_done_test)
   add_dependencies(buildtests_cxx cancel_after_invoke_test)
   add_dependencies(buildtests_cxx cancel_after_round_trip_test)
-  add_dependencies(buildtests_cxx cancel_ares_query_test)
+  if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
+    add_dependencies(buildtests_cxx cancel_ares_query_test)
+  endif()
   add_dependencies(buildtests_cxx cancel_before_invoke_test)
   add_dependencies(buildtests_cxx cancel_callback_test)
   add_dependencies(buildtests_cxx cancel_in_a_vacuum_test)
@@ -3595,6 +3603,9 @@ target_link_libraries(gtest
   absl::variant
 )
 
+if (QNX)
+  target_link_libraries(gtest ${CMAKE_THREAD_LIBS_INIT} regex)
+endif()
 
 endif()
 

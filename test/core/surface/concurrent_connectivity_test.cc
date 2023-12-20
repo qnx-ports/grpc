@@ -55,6 +55,10 @@
 // wouldn't need to reduce the number of threads on MacOS
 #ifdef __APPLE__
 #define NUM_THREADS 10
+// RPI4 is pretty slow. We either need to decrease NUM_THREADS or increase the
+// timeout time
+#elif defined(__QNX__)
+#define NUM_THREADS 50
 #else
 #define NUM_THREADS 100
 #endif  // __APPLE

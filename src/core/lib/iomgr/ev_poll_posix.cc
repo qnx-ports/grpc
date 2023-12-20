@@ -916,6 +916,9 @@ static void work_combine_error(grpc_error_handle* composite,
 static grpc_error_handle pollset_work(grpc_pollset* pollset,
                                       grpc_pollset_worker** worker_hdl,
                                       grpc_core::Timestamp deadline) {
+  #ifdef QNX_DEBUG
+  std::cout << "ev_poll_posix.cc::pollset_work: start" << std::endl;
+  #endif
   grpc_pollset_worker worker;
   if (worker_hdl) *worker_hdl = &worker;
   grpc_error_handle error;
@@ -1092,6 +1095,9 @@ static grpc_error_handle pollset_work(grpc_pollset* pollset,
   // worker list, which means nobody could ask us to re-evaluate polling).
   done:
     if (!locked) {
+      #ifdef QNX_DEBUG
+      std::cout << "ev_poll_posix.cc::pollset_work: exec flush" << std::endl;
+      #endif
       queued_work |= grpc_core::ExecCtx::Get()->Flush();
       gpr_mu_lock(&pollset->mu);
       locked = 1;
@@ -1120,6 +1126,9 @@ static grpc_error_handle pollset_work(grpc_pollset* pollset,
   pollset->local_wakeup_cache = worker.wakeup_fd;
   // check shutdown conditions
   if (pollset->shutting_down) {
+    #ifdef QNX_DEBUG
+    std::cout << "ev_poll_posix.cc::pollset_work: pollset shutting down" << std::endl;
+    #endif
     if (pollset_has_workers(pollset)) {
       (void)pollset_kick(pollset, nullptr);
     } else if (!pollset->called_shutdown && !pollset_has_observers(pollset)) {

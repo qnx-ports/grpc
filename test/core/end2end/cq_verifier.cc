@@ -343,8 +343,12 @@ bool IsMaybe(const CqVerifier::ExpectedResult& r) {
 }  // namespace
 
 grpc_event CqVerifier::Step(gpr_timespec deadline) {
+  #ifdef QNX_DEBUG
+  std::cout << "CqVerifier::Step: start" << std::endl;
+  #endif
   if (step_fn_ != nullptr) {
     while (true) {
+      std::cout << "While true in step: infinit loop" << std::endl;
       grpc_event r = grpc_completion_queue_next(
           cq_, gpr_inf_past(deadline.clock_type), nullptr);
       if (r.type != GRPC_QUEUE_TIMEOUT) return r;
@@ -369,12 +373,18 @@ void CqVerifier::Verify(Duration timeout, SourceLocation location) {
     }
     must_log = false;
     grpc_event ev = Step(deadline);
-    if (ev.type == GRPC_QUEUE_TIMEOUT) break;
+    if (ev.type == GRPC_QUEUE_TIMEOUT) {
+      std::cout << "broke for time out" << std::endl;
+      break;
+    }
     if (ev.type != GRPC_OP_COMPLETE) {
       FailUnexpectedEvent(&ev, location);
     }
     bool found = false;
     for (auto it = expectations_.begin(); it != expectations_.end(); ++it) {
+      #ifdef QNX_DEBUG
+      std::cout << "CqVerifier::Verify: At least I am in the loop" << std::endl;
+      #endif
       if (it->tag != ev.tag) continue;
       auto expectation = std::move(*it);
       expectations_.erase(it);

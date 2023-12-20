@@ -212,7 +212,9 @@
 #define GRPC_POSIX_SOCKET 1
 #define GRPC_POSIX_SOCKETUTILS 1
 #define GRPC_POSIX_WAKEUP_FD 1
-#elif defined(__QNX__) || defined(__QNXNTO__)
+#elif defined(GPR_QNX)
+#define GRPC_HAVE_QNX_VSOCK 1
+#define GRPC_POSIX_FORK 1
 #define GRPC_HAVE_ARPA_NAMESER 1
 #define GRPC_HAVE_IFADDRS 1
 #define GRPC_HAVE_IPV6_RECVPKTINFO 1

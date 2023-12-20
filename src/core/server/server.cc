@@ -331,7 +331,13 @@ class Server::RealRequestMatcher : public RequestMatcherInterface {
 
   void RequestCallWithPossiblePublish(size_t request_queue_index,
                                       RequestedCall* call) override {
+    #ifdef QNX_DEBUG
+    std::cout << "server.cc: RequestCallWithPossiblePublish: start" << std::endl;
+    #endif
     if (requests_per_cq_[request_queue_index].Push(&call->mpscq_node)) {
+      #ifdef QNX_DEBUG
+      std::cout << "server.cc: RequestCallWithPossiblePublish: pushed requests" << std::endl;
+      #endif
       // this was the first queued request: we need to lock and start
       // matching calls
       struct NextPendingCall {
@@ -389,10 +395,16 @@ class Server::RealRequestMatcher : public RequestMatcherInterface {
         }
       }
     }
+    #ifdef QNX_DEBUG
+    std::cout << "server.cc RequestCallWithPossiblePublish ending: " << requests_per_cq_.size() << std::endl;
+    #endif
   }
 
   void MatchOrQueue(size_t start_request_queue_index,
                     CallData* calld) override {
+    #ifdef QNX_DEBUG
+    std::cout << "match or queue: " << requests_per_cq_.size() << std::endl;
+    #endif
     for (size_t i = 0; i < requests_per_cq_.size(); i++) {
       size_t cq_idx = (start_request_queue_index + i) % requests_per_cq_.size();
       RequestedCall* rc =
