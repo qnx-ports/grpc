@@ -15,7 +15,6 @@
  * limitations under the License.
  *
  */
-#undef __linux__
 #ifndef GRPC_SUPPORT_PORT_PLATFORM_H
 #define GRPC_SUPPORT_PORT_PLATFORM_H
 
