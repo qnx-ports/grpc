@@ -73,7 +73,7 @@ def platform_string():
     return jobset.platform_string()
 
 
-_DEFAULT_TIMEOUT_SECONDS = 7 * 60
+_DEFAULT_TIMEOUT_SECONDS = 10 * 60 if platform.system() == "QNX" else 7 * 60
 _PRE_BUILD_STEP_TIMEOUT_SECONDS = 10 * 60
 
 
