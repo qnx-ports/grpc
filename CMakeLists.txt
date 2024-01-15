@@ -1252,7 +1252,9 @@ if(gRPC_BUILD_TESTS)
   endif()
   add_dependencies(buildtests_cxx negative_deadline_test)
   add_dependencies(buildtests_cxx no_destruct_test)
-  add_dependencies(buildtests_cxx no_logging_test)
+  if (NOT _gRPC_PLATFORM_QNX) # There is some issue with the cmake build in the upstream repo for no-log
+    add_dependencies(buildtests_cxx no_logging_test)
+  endif()
   add_dependencies(buildtests_cxx no_op_test)
   add_dependencies(buildtests_cxx no_server_test)
   add_dependencies(buildtests_cxx nonblocking_test)
@@ -20975,14 +20977,21 @@ target_include_directories(no_logging_test
     ${_gRPC_PROTO_GENS_DIR}
 )
 
-target_link_libraries(no_logging_test
-  ${_gRPC_ALLTARGETS_LIBRARIES}
-  gtest
-  grpc_authorization_provider
-  grpc_unsecure
-  grpc_test_util
-)
-
+if (QNX)
+  target_link_libraries(no_logging_test
+    ${_gRPC_ALLTARGETS_LIBRARIES}
+    gtest
+    grpc_test_util
+  )
+else()
+  target_link_libraries(no_logging_test
+    ${_gRPC_ALLTARGETS_LIBRARIES}
+    gtest
+    grpc_authorization_provider
+    grpc_unsecure
+    grpc_test_util
+  )
+endif()
 
 endif()
 if(gRPC_BUILD_TESTS)

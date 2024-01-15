@@ -95,7 +95,7 @@ void test_bind_server_twice(void) {
   #if defined(__QNX__)
   // As of now in QNX, the socket flag `SO_REUSEADDR` will treate 
   // 0.0.0.0 and :: as two different addresses even when dual-stack
-  // is on (IPV6_ONLY is off).
+  // is on (IPV6_V6ONLY is off).
   ASSERT_EQ(port, grpc_server_add_http2_port(server2, addr.c_str(),
                                           another_insecure_creds));
   #else

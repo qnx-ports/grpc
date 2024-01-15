@@ -1,0 +1,13 @@
+diff --git a/.gitmodules b/.gitmodules
+index aa02862b11..4a92b9f2a2 100644
+--- a/.gitmodules
++++ b/.gitmodules
+@@ -4,7 +4,7 @@
+ [submodule "third_party/benchmark"]
+ 	path = third_party/benchmark
+ 	url = git@gitlab.rim.net:qnx/osr/benchmark.git
+-	branch = QNXOSG-73/benchmark710
++	branch = qnx-sdp71-main
+ [submodule "third_party/bloaty"]
+ 	path = third_party/bloaty
+ 	url = https://github.com/google/bloaty.git
