@@ -48,9 +48,6 @@ static void exec_ctx_run(grpc_closure* closure) {
 }
 
 static void exec_ctx_sched(grpc_closure* closure) {
-  #ifdef QNX_DEBUG
-  std::cout << "exec_ctx_sched: " << closure->DebugString() << std::endl;
-  #endif
   grpc_closure_list_append(grpc_core::ExecCtx::Get()->closure_list(), closure);
 }
 
@@ -75,21 +72,12 @@ ApplicationCallbackExecCtx*& ApplicationCallbackExecCtx::callback_exec_ctx() {
 bool ExecCtx::Flush() {
   bool did_something = false;
   for (;;) {
-    #ifdef QNX_DEBUG
-    std::cout << "ExecCtx::Flush(): for loop" << std::endl;
-    #endif
     if (!grpc_closure_list_empty(closure_list_)) {
-      #ifdef QNX_DEBUG
-      std::cout << "ExecCtx::Flush(): closure list non-empty" << std::endl;
-      #endif
       grpc_closure* c = closure_list_.head;
       closure_list_.head = closure_list_.tail = nullptr;
       while (c != nullptr) {
         grpc_closure* next = c->next_data.next;
         did_something = true;
-        #ifdef QNX_DEBUG
-        std::cout << "ExecCtx::Flush(): exec_ctx_run: " << c->DebugString() << std::endl;
-        #endif
         exec_ctx_run(c);
         c = next;
       }
