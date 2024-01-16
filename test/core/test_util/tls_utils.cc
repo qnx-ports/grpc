@@ -16,7 +16,6 @@
 #include "test/core/test_util/tls_utils.h"
 
 #include <stdio.h>
-#include <iostream>
 
 #include "absl/log/check.h"
 #include "absl/strings/str_cat.h"

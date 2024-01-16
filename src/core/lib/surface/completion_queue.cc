@@ -945,9 +945,6 @@ static void dump_pending_tags(grpc_completion_queue* /*cq*/) {}
 
 static grpc_event cq_next(grpc_completion_queue* cq, gpr_timespec deadline,
                           void* reserved) {
-  #ifdef QNX_DEBUG
-  std::cout << "completion_queue.cc: cq_next: start" << std::endl;
-  #endif
   grpc_event ret;
   cq_next_data* cqd = static_cast<cq_next_data*> DATA_FROM_CQ(cq);
 
@@ -1037,9 +1034,6 @@ static grpc_event cq_next(grpc_completion_queue* cq, gpr_timespec deadline,
     // The main polling work happens in grpc_pollset_work
     gpr_mu_lock(cq->mu);
     cq->num_polls++;
-    #ifdef QNX_DEBUG
-    std::cout << "completion_queue.cc: cq_next: entering worker" << std::endl;
-    #endif
     grpc_error_handle err = cq->poller_vtable->work(
         POLLSET_FROM_CQ(cq), nullptr, iteration_deadline);
     gpr_mu_unlock(cq->mu);

@@ -227,9 +227,6 @@ bool grpc_combiner_continue_exec_ctx() {
     grpc_error_handle cl_err =
         grpc_core::internal::StatusMoveFromHeapPtr(cl->error_data.error);
     cl->error_data.error = 0;
-    #ifdef QNX_DEBUG
-    std::cout << "grpc_combiner_continue_exec_ctx closure: " << cl->DebugString() << std::endl;
-    #endif
     cl->cb(cl->cb_arg, std::move(cl_err));
   } else {
     grpc_closure* c = lock->final_list.head;
