@@ -7,8 +7,7 @@ index 99016a3d37..4a92b9f2a2 100644
  [submodule "third_party/benchmark"]
  	path = third_party/benchmark
 -	url = https://github.com/google/benchmark
-+	url = ../benchmark
-+	branch = qnx-sdp71-main
++	url = ../benchmark.git
  [submodule "third_party/bloaty"]
  	path = third_party/bloaty
  	url = https://github.com/google/bloaty.git
