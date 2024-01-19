@@ -6,12 +6,12 @@ index 99016a3d37..8995f66f14 100644
  [submodule "third_party/abseil-cpp"]
  	path = third_party/abseil-cpp
 -	url = https://github.com/abseil/abseil-cpp.git
-+	url = git@gitlab.rim.net:qnx/osr/abseil-cpp.git
++	url = ../abseil-cpp
 +	branch = qnx-sdp71-main
  [submodule "third_party/benchmark"]
  	path = third_party/benchmark
 -	url = https://github.com/google/benchmark
-+	url = git@gitlab.rim.net:qnx/osr/benchmark.git
++	url = ../benchmark
 +	branch = qnx-sdp71-main
  [submodule "third_party/bloaty"]
  	path = third_party/bloaty
@@ -19,7 +19,7 @@ index 99016a3d37..8995f66f14 100644
  [submodule "third_party/boringssl-with-bazel"]
  	path = third_party/boringssl-with-bazel
 -	url = https://github.com/google/boringssl.git
-+	url = git@gitlab.rim.net:qnx/osr/boringssl.git
++	url = ../boringssl
 +	branch = qnx-sdp71-main
  [submodule "third_party/cares/cares"]
  	path = third_party/cares/cares
@@ -29,7 +29,7 @@ index 99016a3d37..8995f66f14 100644
  [submodule "third_party/opencensus-proto"]
  	path = third_party/opencensus-proto
 -	url = https://github.com/census-instrumentation/opencensus-proto.git
-+	url = git@gitlab.rim.net:qnx/osr/googletest.git
++	url = ../googletest
 +	branch = qnx-sdp71-main
  [submodule "third_party/opentelemetry"]
  	path = third_party/opentelemetry
@@ -37,7 +37,7 @@ index 99016a3d37..8995f66f14 100644
  [submodule "third_party/protobuf"]
  	path = third_party/protobuf
 -	url = https://github.com/protocolbuffers/protobuf.git
-+	url = git@gitlab.rim.net:qnx/osr/protobuf.git
++	url = ../protobuf
 +	branch = qnx-sdp71-main
  [submodule "third_party/protoc-gen-validate"]
  	path = third_party/protoc-gen-validate
@@ -47,7 +47,7 @@ index 99016a3d37..8995f66f14 100644
  [submodule "third_party/xds"]
  	path = third_party/xds
 -	url = https://github.com/cncf/xds.git
-+	url = git@gitlab.rim.net:qnx/osr/re2.git
++	url = ../re2
 +	branch = qnx-sdp71-main
  [submodule "third_party/zlib"]
  	path = third_party/zlib
