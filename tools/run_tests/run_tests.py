@@ -518,10 +518,14 @@ class CLanguage(object):
                 ]
                 + self._cmake_configure_extra_args
             ]
+        elif self.platform == "qnx":
+            # QNX tests should be cross-compiled already
+            return [
+                self._cmake_configure_extra_args
+            ]
         else:
             return [
-                # ["tools/run_tests/helper_scripts/build_cxx.sh"]
-                # + self._cmake_configure_extra_args
+                ["tools/run_tests/helper_scripts/build_cxx.sh"],
                 self._cmake_configure_extra_args
             ]
 
@@ -545,6 +549,8 @@ class CLanguage(object):
 
     def post_tests_steps(self):
         if self.platform == "windows":
+            return []
+        elif self.platform == "qnx":
             return []
         else:
             return [["tools/run_tests/helper_scripts/post_tests_c.sh"]]

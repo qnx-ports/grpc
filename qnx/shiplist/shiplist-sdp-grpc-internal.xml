@@ -96,6 +96,10 @@
     <file name="${targetfolder}/[ARCH]/usr/lib/libre2.so.9" />
     <file name="${targetfolder}/[ARCH]/usr/lib/libre2.so.9.0.0" />
 
+    <!-- Headers -->
+    <asset dest="${targetfolder}/usr/include/grpc" />
+
     <asset dest="${targetfolder}/[ARCH]/usr/bin/grpc_tests" />
+
 <shiplist>
 $DOCKEDOCKER_PATH="$PROJECT_ROOT/qnx/build"
