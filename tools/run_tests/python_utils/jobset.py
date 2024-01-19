@@ -58,6 +58,8 @@ def platform_string():
         return "mac"
     elif platform.system() == "Linux":
         return "linux"
+    elif platform.system() == "QNX":
+        return "qnx"
     else:
         return "posix"
 
