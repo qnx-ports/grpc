@@ -28,6 +28,11 @@
     apt-get install -y build-essential autoconf libtool pkg-config
     apt-get install -y clang libc++-dev
     git submodule update --init
+    # Manually update submodule to our branch.
+    # This information is stored in git database directly and not affected by .gitmodules
+    cd ./third_party/benchmark
+    git switch qnx-sdp71-main
+    cd -
     mkdir -p cmake/build && cd cmake/build && cmake ../.. && make -j8 install
     ```
 4. Go back to your project root by `cd`
