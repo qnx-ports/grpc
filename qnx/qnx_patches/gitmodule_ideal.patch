@@ -1,54 +1,48 @@
 diff --git a/.gitmodules b/.gitmodules
-index 99016a3d37..8995f66f14 100644
+index 99016a3d37..9fdc52d751 100644
 --- a/.gitmodules
 +++ b/.gitmodules
-@@ -1,15 +1,18 @@
+@@ -1,15 +1,15 @@
  [submodule "third_party/abseil-cpp"]
  	path = third_party/abseil-cpp
 -	url = https://github.com/abseil/abseil-cpp.git
-+	url = ../abseil-cpp
-+	branch = qnx-sdp71-main
++	url = ../abseil-cpp.git
  [submodule "third_party/benchmark"]
  	path = third_party/benchmark
 -	url = https://github.com/google/benchmark
-+	url = ../benchmark
-+	branch = qnx-sdp71-main
++	url = ../benchmark.git
  [submodule "third_party/bloaty"]
  	path = third_party/bloaty
  	url = https://github.com/google/bloaty.git
  [submodule "third_party/boringssl-with-bazel"]
  	path = third_party/boringssl-with-bazel
 -	url = https://github.com/google/boringssl.git
-+	url = ../boringssl
-+	branch = qnx-sdp71-main
++	url = ../boringssl.git
  [submodule "third_party/cares/cares"]
  	path = third_party/cares/cares
  	url = https://github.com/c-ares/c-ares.git
-@@ -24,13 +27,15 @@
+@@ -24,13 +24,13 @@
  	url = https://github.com/google/googletest.git
  [submodule "third_party/opencensus-proto"]
  	path = third_party/opencensus-proto
 -	url = https://github.com/census-instrumentation/opencensus-proto.git
-+	url = ../googletest
-+	branch = qnx-sdp71-main
++	url = ../googletest.git
  [submodule "third_party/opentelemetry"]
  	path = third_party/opentelemetry
  	url = https://github.com/open-telemetry/opentelemetry-proto.git
  [submodule "third_party/protobuf"]
  	path = third_party/protobuf
 -	url = https://github.com/protocolbuffers/protobuf.git
-+	url = ../protobuf
-+	branch = qnx-sdp71-main
++	url = ../protobuf.git
  [submodule "third_party/protoc-gen-validate"]
  	path = third_party/protoc-gen-validate
  	url = https://github.com/envoyproxy/protoc-gen-validate.git
-@@ -39,7 +44,8 @@
+@@ -39,7 +39,7 @@
  	url = https://github.com/google/re2.git
  [submodule "third_party/xds"]
  	path = third_party/xds
 -	url = https://github.com/cncf/xds.git
-+	url = ../re2
-+	branch = qnx-sdp71-main
++	url = ../re2.git
  [submodule "third_party/zlib"]
  	path = third_party/zlib
  	url = https://github.com/madler/zlib
