@@ -1,5 +1,5 @@
 diff --git a/.gitmodules b/.gitmodules
-index 99016a3d37..9fdc52d751 100644
+index 99016a3d37..c49c40083e 100644
 --- a/.gitmodules
 +++ b/.gitmodules
 @@ -1,15 +1,15 @@
@@ -21,14 +21,16 @@ index 99016a3d37..9fdc52d751 100644
  [submodule "third_party/cares/cares"]
  	path = third_party/cares/cares
  	url = https://github.com/c-ares/c-ares.git
-@@ -24,13 +24,13 @@
- 	url = https://github.com/google/googletest.git
+@@ -21,7 +21,7 @@
+ 	url = https://github.com/googleapis/googleapis.git
+ [submodule "third_party/googletest"]
+ 	path = third_party/googletest
+-	url = https://github.com/google/googletest.git
++	url = ../googletest.git
  [submodule "third_party/opencensus-proto"]
  	path = third_party/opencensus-proto
--	url = https://github.com/census-instrumentation/opencensus-proto.git
-+	url = ../googletest.git
- [submodule "third_party/opentelemetry"]
- 	path = third_party/opentelemetry
+ 	url = https://github.com/census-instrumentation/opencensus-proto.git
+@@ -30,13 +30,13 @@
  	url = https://github.com/open-telemetry/opentelemetry-proto.git
  [submodule "third_party/protobuf"]
  	path = third_party/protobuf
@@ -37,12 +39,10 @@ index 99016a3d37..9fdc52d751 100644
  [submodule "third_party/protoc-gen-validate"]
  	path = third_party/protoc-gen-validate
  	url = https://github.com/envoyproxy/protoc-gen-validate.git
-@@ -39,7 +39,7 @@
- 	url = https://github.com/google/re2.git
+ [submodule "third_party/re2"]
+ 	path = third_party/re2
+-	url = https://github.com/google/re2.git
++	url = ../re2.git
  [submodule "third_party/xds"]
  	path = third_party/xds
--	url = https://github.com/cncf/xds.git
-+	url = ../re2.git
- [submodule "third_party/zlib"]
- 	path = third_party/zlib
- 	url = https://github.com/madler/zlib
+ 	url = https://github.com/cncf/xds.git
