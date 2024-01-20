@@ -18,6 +18,7 @@ qnx_submodule() {
 
 qnx_submodule "benchmark"
 
+echo "Submodule Updated to QNX Versions!"
 
 # uncomment below when the corresponding repo is ported
 # qnx_submodule "abseil-cpp"
