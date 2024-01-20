@@ -30,9 +30,8 @@
     git submodule update --init
     # Manually update submodule to our branch.
     # This information is stored in git database directly and not affected by .gitmodules
-    cd ./third_party/benchmark
-    git switch qnx-sdp71-main
-    cd -
+    ./qnx/build/update_submodule.sh
+    # This is necessary: install a host grpc first!
     mkdir -p cmake/build && cd cmake/build && cmake ../.. && make -j8 install
     ```
 4. Go back to your project root by `cd`
