@@ -1,13 +1,16 @@
 # Compile The Port for QNX
 **NOTE**: QNX ports are only supported from a Linux host operating system
 
+### Common steps:
+1. Clone this repository `git clone -b qnx-sdp71-master git@gitlab.rim.net:qnx/osr/grpc.git && cd grpc`
+2. We need to manually update submodule to our branch because the information is stored in git database directly and not affected by .gitmodules`git apply ./qnx/qnx_patches/gitmodule.patch && git submodule update --init && ./qnx/build/update_submodule.sh`
+3. Setup QNX environment by `source <PATH-TO-SDP>/qnxsdp-env.sh`
+
 ### Build with Docker
-1. Clone this repository `git clone -b qnx-sdp71-master git@gitlab.rim.net:qnx/osr/grpc.git`
-2. `cd grpc && git apply ./qnx/qnx_patches/gitmodule.patch`
-3. Make sure you have `docker` installed and available on your host machine
-4. Run `docker pull ubuntu:22.04` to get the base image
-5. Setup QNX environment by `source <PATH-TO-SDP>/qnxsdp-env.sh`
-6. Run `cd qnx/build && PROJECT_ROOT=[path_to_project_root] ./docker_build.sh [-m BUILD|CLEAN|DEBUG|INSTALL] [-j JLEVEL]`
+
+4. Make sure you have `docker` installed and available on your host machine
+5. Run `docker pull ubuntu:22.04` to get the base image
+6. Run `cd qnx/build && PROJECT_ROOT=<path_to_project_root> ./docker_build.sh [-m BUILD|CLEAN|DEBUG|INSTALL] [-j <JLEVEL>]`
    * The script will build a docker image named `grpc_build`
    * Your SDP path and the project root will be mounted to the container, so all output
    * You should see the building process in your terminal as the contrainer is attached.
@@ -18,25 +21,17 @@
      * `CLEAN`: clean the build
 
 ### Buid on Your Host Machine
-1. Clone this repository `git clone -b qnx-sdp71-master git@gitlab.rim.net:qnx/osr/grpc.git`
-2. `cd grpc && git apply ./qnx/qnx_patches/gitmodule.patch`
-3. Run the following commands to setup the environment on your host
+4. Run the following commands to setup the environment on your host
     ```
     # Build and install grpc for the host first
     apt-get update
     apt-get install -y git protobuf-compiler
     apt-get install -y build-essential autoconf libtool pkg-config
     apt-get install -y clang libc++-dev
-    git submodule update --init
-    # Manually update submodule to our branch.
-    # This information is stored in git database directly and not affected by .gitmodules
-    ./qnx/build/update_submodule.sh
     # This is necessary: install a host grpc first!
     mkdir -p cmake/build && cd cmake/build && cmake ../.. && make -j8 install
     ```
-4. Go back to your project root by `cd`
-5. Setup QNX environment by `source <PATH-TO-SDP>/qnxsdp-env.sh`
-6. Run `JLEVEL=[JLEVEL] make -C qnx/build install` to build and install the project to your SDP path. `JLEVEL` is similar to the `-j` option of `make`, but please use `JLEVEL` instead.
+5. Run `[JLEVEL=<JLEVEL>] make -C qnx/build install` to build and install the project to your SDP path. `JLEVEL` is similar to the `-j` option of `make`, but please use `JLEVEL` instead.
 
 ### Others
 * `gitmodule_ideal.patch` should not be used until all dependent repos are ported.
