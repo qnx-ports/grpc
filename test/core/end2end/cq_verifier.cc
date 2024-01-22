@@ -368,6 +368,7 @@ void CqVerifier::Verify(Duration timeout, SourceLocation location) {
     }
     must_log = false;
     grpc_event ev = Step(deadline);
+    if (ev.type == GRPC_QUEUE_TIMEOUT) break;
     if (ev.type != GRPC_OP_COMPLETE) {
       FailUnexpectedEvent(&ev, location);
     }
