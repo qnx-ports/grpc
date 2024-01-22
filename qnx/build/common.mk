@@ -64,7 +64,7 @@ MAKE_ARGS ?= -j $(firstword $(JLEVEL) 1)
 ifndef NO_TARGET_OVERRIDE
 grpc_all:
 	@mkdir -p build
-	@echo "========================cmake $(CMAKE_ARGS) $(DIST_BASE)"
+	@echo "cmake $(CMAKE_ARGS) $(DIST_BASE)"
 	@cd build && cmake $(CMAKE_ARGS) $(DIST_BASE)
 	@cd build && make VERBOSE=1 all $(MAKE_ARGS)
 
