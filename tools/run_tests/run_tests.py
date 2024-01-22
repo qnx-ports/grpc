@@ -525,8 +525,8 @@ class CLanguage(object):
             ]
         else:
             return [
-                ["tools/run_tests/helper_scripts/build_cxx.sh"],
-                self._cmake_configure_extra_args
+                ["tools/run_tests/helper_scripts/build_cxx.sh"]
+                + self._cmake_configure_extra_args
             ]
 
     def build_steps_environ(self):
@@ -1880,19 +1880,19 @@ build_steps = list(
 )
 
 # collect build steps
-# build_steps.extend(
-#     set(
-#         jobset.JobSpec(
-#             cmdline,
-#             environ=_build_step_environ(
-#                 build_config, extra_env=l.build_steps_environ()
-#             ),
-#             timeout_seconds=None,
-#         )
-#         for l in languages
-#         for cmdline in l.build_steps()
-#     )
-# )
+build_steps.extend(
+    set(
+        jobset.JobSpec(
+            cmdline,
+            environ=_build_step_environ(
+                build_config, extra_env=l.build_steps_environ()
+            ),
+            timeout_seconds=None,
+        )
+        for l in languages
+        for cmdline in l.build_steps()
+    )
+)
 
 # collect post test steps
 post_tests_steps = list(
