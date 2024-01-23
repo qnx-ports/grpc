@@ -520,9 +520,7 @@ class CLanguage(object):
             ]
         elif self.platform == "qnx":
             # QNX tests should be cross-compiled already
-            return [
-                self._cmake_configure_extra_args
-            ]
+            return []
         else:
             return [
                 ["tools/run_tests/helper_scripts/build_cxx.sh"]

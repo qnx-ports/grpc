@@ -9,17 +9,17 @@
 
     scp -r <QNX_TARGET>/<ARCH>/usr/bin/grpc_tests root@<target-ip-address>:<your_test_path>
     ```
-3. `ssh root@<target-ip-address>:/usr/lib`
-4. Change the default localhosts: `scp <PROJECT_ROOT>/qnx/test/hosts root@<target-ip-address>:/etc/`
+3. Change the default localhosts: `scp <PROJECT_ROOT>/qnx/test/hosts root@<target-ip-address>:/etc/`
+4. `ssh root@<target-ip-address>:/usr/lib`
 
-5. Run the tests
+5. Run the tests by running the following script on the target:
     ```
     ntpdate -sb 0.pool.ntp.org 1.pool.ntp.org 
     export TMPDIR=/var  
     python3 -m ensurepip --root /  
     python3 -m pip install six
     mkdir -p /tmp/ #DO NOT OMIT THIS
-    cd <your_test_path>/grpc_tests
+    cd <your_test_path>
     python3 ./tools/run_tests/run_tests.py -l c++
     ```
 
