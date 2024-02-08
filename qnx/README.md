@@ -4,7 +4,7 @@
 ### Common steps:
 1. Clone this repository `git clone -b qnx-sdp71-master git@gitlab.rim.net:qnx/osr/grpc.git && cd grpc`
 2. We need to manually update submodule to our branch because the information is stored in git database directly and not affected by .gitmodules`git apply ./qnx/qnx_patches/gitmodule.patch && git submodule update --init && ./qnx/build/update_submodule.sh`
-3. Setup QNX environment by `source <PATH-TO-SDP>/qnxsdp-env.sh`
+3. Setup QNX environment by installing package `com.qnx.qnx710.target.qavf.virtual_socket` from software center and then `source <PATH-TO-SDP>/qnxsdp-env.sh`
 
 ### Build with Docker
 

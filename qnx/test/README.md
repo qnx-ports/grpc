@@ -5,11 +5,12 @@
 2. Move gRPC library and the test binary to the target:
     ```
     # You can use other tools like sshpass to simplify the process
-    find <PROJECT_ROOT>/qnx/build/<NTO_ARCH>/build/ -name "lib*.so*" | xargs -I{} scp {} root@<target-ip-address>:/usr/lib
+    scp -r `find <PROJECT_ROOT>/qnx/build/<NTO_ARCH>/build/ -name "lib*.so*"` root@<target-ip-address>:/usr/lib
 
     scp -r <QNX_TARGET>/<ARCH>/usr/bin/grpc_tests root@<target-ip-address>:<your_test_path>
     ```
 3. Change the default localhosts: `scp <PROJECT_ROOT>/qnx/test/hosts root@<target-ip-address>:/etc/`
+
 4. `ssh root@<target-ip-address>:/usr/lib`
 
 5. Run the tests by running the following script on the target:
@@ -19,7 +20,7 @@
     python3 -m ensurepip --root /  
     python3 -m pip install six
     mkdir -p /tmp/ #DO NOT OMIT THIS
-    cd <your_test_path>
+    cd <your_test_path>/grpc_tests
     python3 ./tools/run_tests/run_tests.py -l c++
     ```
 

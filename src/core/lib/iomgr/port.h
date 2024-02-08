@@ -213,20 +213,22 @@
 #define GRPC_POSIX_SOCKETUTILS 1
 #define GRPC_POSIX_WAKEUP_FD 1
 #elif defined(GPR_QNX)
-#define GRPC_HAVE_QNX_VSOCK 1
-#define GRPC_POSIX_FORK 1
+
+// NETBSD for io-pkt
 #define GRPC_HAVE_ARPA_NAMESER 1
 #define GRPC_HAVE_IFADDRS 1
 #define GRPC_HAVE_IPV6_RECVPKTINFO 1
+// #define GRPC_HAVE_SO_NOSIGPIPE 1
+#define GRPC_HAVE_UNIX_SOCKET 1
+#define GRPC_POSIX_FORK 1
+#define GRPC_POSIX_NO_SPECIAL_WAKEUP_FD 1
+#define GRPC_POSIX_SOCKET 1
+#define GRPC_POSIX_SOCKETUTILS 1
+#define GRPC_POSIX_WAKEUP_FD 1
+
+#define GRPC_HAVE_VSOCK 1
 #define GRPC_HAVE_IP_PKTINFO 1
 #define GRPC_HAVE_MSG_NOSIGNAL 1
-#define GRPC_HAVE_UNIX_SOCKET 1
-// TODO(rbyshliaha): Find a way to understand if VSOCK package is installed in
-//                   a toolchain to enable GRPC_HAVE_VSOCK.
-#define GRPC_POSIX_SOCKET 1
-#define GRPC_POSIX_WAKEUP_FD 1
-#define GRPC_POSIX_NO_SPECIAL_WAKEUP_FD 1
-#define GRPC_POSIX_SOCKETUTILS 1
 #define GRPC_POSIX_SYSCONF 1
 #elif !defined(GPR_NO_AUTODETECT_PLATFORM)
 #error "Platform not recognized"
