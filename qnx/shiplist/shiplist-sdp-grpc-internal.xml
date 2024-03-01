@@ -101,5 +101,4 @@
 
     <asset dest="${targetfolder}/[ARCH]/usr/bin/grpc_tests" />
 
-<shiplist>
-$DOCKEDOCKER_PATH="$PROJECT_ROOT/qnx/build"
+</shiplist>
