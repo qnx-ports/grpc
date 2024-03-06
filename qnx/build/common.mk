@@ -27,7 +27,7 @@ ALL_DEPENDENCIES = grpc_all
 
 CFLAGS += $(FLAGS) -D__EXT_QNX -D_QNX_SOURCE
 
-ifneq ("$(wildcard ${QNX_TARGET}/usr/include/vm_sockets.h)", "")
+ifneq ($(wildcard ${QNX_TARGET}/usr/include/vm_sockets.h),)
 CFLAGS += -DQNX_HAVE_VSOCK
 endif
 

@@ -86,11 +86,6 @@
     <file name="${targetfolder}/[ARCH]/usr/lib/libutf8_range_lib.so.36" />
     <file name="${targetfolder}/[ARCH]/usr/lib/libutf8_range_lib.so.36.0.0" />
 
-    <!-- zlib: not ported yet -->
-    <file name="${targetfolder}/[ARCH]/usr/lib/libz.so" />
-    <file name="${targetfolder}/[ARCH]/usr/lib/libz.so.1" />
-    <file name="${targetfolder}/[ARCH]/usr/lib/libz.so.1.2.13" />
-
     <!-- re2: 7.1 not ported yet -->
     <file name="${targetfolder}/[ARCH]/usr/lib/libre2.so" />
     <file name="${targetfolder}/[ARCH]/usr/lib/libre2.so.9" />
