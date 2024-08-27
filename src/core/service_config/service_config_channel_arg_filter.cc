@@ -47,6 +47,7 @@
 #include "src/core/service_config/service_config_call_data.h"
 #include "src/core/service_config/service_config_impl.h"
 #include "src/core/service_config/service_config_parser.h"
+#include "src/core/util/latent_see.h"
 
 namespace grpc_core {
 
@@ -107,6 +108,8 @@ const NoInterceptor ServiceConfigChannelArgFilter::Call::OnFinalize;
 
 void ServiceConfigChannelArgFilter::Call::OnClientInitialMetadata(
     ClientMetadata& md, ServiceConfigChannelArgFilter* filter) {
+  GRPC_LATENT_SEE_INNER_SCOPE(
+      "ServiceConfigChannelArgFilter::Call::OnClientInitialMetadata");
   const ServiceConfigParser::ParsedConfigVector* method_configs = nullptr;
   if (filter->service_config_ != nullptr) {
     method_configs = filter->service_config_->GetMethodParsedConfigVector(
