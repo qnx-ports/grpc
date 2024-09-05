@@ -1146,6 +1146,11 @@ grpc_cc_library(
         "include/grpcpp/security/binder_credentials.h",
     ],
     tags = ["nofixdeps"],
+    # The gRPC Binder transport is unmaintained, and users of it have refused to maintain it.
+    # gRPC Binder tests have been failing for months.
+    # Per go/thirdparty/maintenance#abandoning, it is our responsibility to delete this code.
+    # If this change breaks you, you will need to find a suitable owner to maintain this code.
+    visibility = ["//visibility:private"],
     deps = [
         "channel",
         "channel_create",
