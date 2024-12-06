@@ -24,7 +24,7 @@
 #include <vm_sockets.h>
 #else
 #include <linux/vm_sockets.h>
-#endif // GPR_QNX
+#endif  // GPR_QNX
 #endif
 
 #include <stdint.h>
