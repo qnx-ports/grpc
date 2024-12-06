@@ -23,6 +23,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "absl/log/check.h" // TODO: do I really need this?
+#include "absl/log/log.h" // TODO: do I really need this?
 #include "absl/log/globals.h"
 #include "absl/strings/match.h"
 #include "absl/strings/str_cat.h"

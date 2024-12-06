@@ -226,7 +226,9 @@
 #ifdef QNX_HAVE_VSOCK
 #define GRPC_HAVE_VSOCK
 #endif
+#if __QNX__ < 800
 #define GRPC_HAVE_IP_PKTINFO 1
+#endif
 #define GRPC_HAVE_MSG_NOSIGNAL 1
 #define GRPC_POSIX_SYSCONF 1
 #elif !defined(GPR_NO_AUTODETECT_PLATFORM)
