@@ -44,12 +44,28 @@ GlobalInstrumentsRegistry::RegisterInstrument(
     absl::Span<const absl::string_view> label_keys,
     absl::Span<const absl::string_view> optional_label_keys) {
   auto& instruments = GetInstrumentList();
+  #ifdef GPR_QNX
+  /*
+  TODO: FIX ME. This is a workaround for ODR violation bug reported: https://github.com/grpc/grpc/issues/37968
+  Most tests links to both libgrpc and libgrpc_unsecure
+  They both defined the global varialble kMetricDisconnections
+  This violates ODR and QNX behaves differently by initilizing both symbols.
+  */
+  InstrumentID counter = 0;
+  for (const auto& descriptor : instruments) {
+    counter++;
+    if (descriptor.name == name) {
+      return counter;
+    }
+  }
+  #else
   for (const auto& descriptor : instruments) {
     if (descriptor.name == name) {
       Crash(
           absl::StrFormat("Metric name %s has already been registered.", name));
     }
   }
+  #endif
   InstrumentID index = instruments.size();
   CHECK_LT(index, std::numeric_limits<uint32_t>::max());
   GlobalInstrumentDescriptor descriptor;

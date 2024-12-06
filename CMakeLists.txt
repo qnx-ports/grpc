@@ -602,7 +602,7 @@ function(protobuf_generate_grpc_cpp_with_import_path_correction FILE_LOCATION IM
 
   #if cross-compiling, find host plugin
   if(CMAKE_CROSSCOMPILING)
-    find_program(_gRPC_CPP_PLUGIN grpc_cpp_plugin)
+    find_program(_gRPC_CPP_PLUGIN grpc_cpp_plugin HINTS "${HOST_GRPC_PATH}")
   else()
     set(_gRPC_CPP_PLUGIN $<TARGET_FILE:grpc_cpp_plugin>)
   endif()
@@ -7785,7 +7785,7 @@ target_link_libraries(backend_metrics_lb_policy_test
 )
 
 if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
-  QNX_INSTALL_TEST(b64_test)
+  QNX_INSTALL_TEST(backend_metrics_lb_policy_test)
 endif()
 
 
@@ -10768,7 +10768,7 @@ target_link_libraries(channel_init_test
 )
 
 if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
-  QNX_INSTALL_TEST(channel_filter_test)
+  QNX_INSTALL_TEST(channel_init_test)
 endif()
 
 
@@ -15899,7 +15899,7 @@ target_link_libraries(frame_test
 )
 
 if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
-  QNX_INSTALL_TEST(frame_header_test)
+  QNX_INSTALL_TEST(frame_test)
 endif()
 
 
@@ -20537,7 +20537,7 @@ target_link_libraries(load_file_test
 )
 
 if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
-  QNX_INSTALL_TEST(log_test)
+  QNX_INSTALL_TEST(load_file_test)
 endif()
 
 
@@ -31985,7 +31985,7 @@ target_link_libraries(test_core_channelz_channelz_test
 )
 
 if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
-  QNX_INSTALL_TEST(test_core_channel_channelz_test)
+  QNX_INSTALL_TEST(test_core_channelz_channelz_test)
 endif()
 
 
@@ -32636,7 +32636,7 @@ target_link_libraries(test_core_util_time_test
 )
 
 if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
-  QNX_INSTALL_TEST(test_core_transport_chttp2_frame_test)
+  QNX_INSTALL_TEST(test_core_util_time_test)
 endif()
 
 
