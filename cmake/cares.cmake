@@ -11,8 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+if(QNX)
+  find_library(CARES_LIBRARY
+  NAMES
+    cares
+  HINTS
+    "${CMAKE_INSTALL_PREFIX}/../lib/"
+    "${CMAKE_INSTALL_PREFIX}/lib/"
+  REQUIRED
+  )
 
-if(gRPC_CARES_PROVIDER STREQUAL "module")
+  set(_gRPC_CARES_LIBRARIES ${CARES_LIBRARY} socket)
+  set(_gRPC_CARES_INCLUDE_DIR "${CMAKE_INSTALL_PREFIX}/../../usr/include")
+elseif(gRPC_CARES_PROVIDER STREQUAL "module")
   if(NOT CARES_ROOT_DIR)
     set(CARES_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/cares/cares)
   endif()

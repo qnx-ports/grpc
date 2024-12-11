@@ -7,6 +7,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -42,6 +43,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -52,6 +54,7 @@
     "benchmark": false,
     "ci_platforms": [
       "linux",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -88,6 +91,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -97,8 +101,27 @@
     "args": [],
     "benchmark": false,
     "ci_platforms": [
+      "qnx"
+    ],
+    "cpu_cost": 1.0,
+    "exclude_configs": [],
+    "exclude_iomgrs": [],
+    "flaky": false,
+    "gtest": true,
+    "language": "c++",
+    "name": "activity_test",
+    "platforms": [
+      "qnx"
+    ],
+    "uses_polling": true
+  },
+  {
+    "args": [],
+    "benchmark": false,
+    "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -156,6 +179,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -167,6 +191,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -226,6 +251,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -237,6 +263,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -250,6 +277,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -261,6 +289,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -274,6 +303,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -285,6 +315,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -298,6 +329,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -309,6 +341,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -322,6 +355,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -333,6 +367,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -346,6 +381,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -357,6 +393,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -370,6 +407,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -381,6 +419,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -394,6 +433,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -405,6 +445,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -418,6 +459,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -429,6 +471,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -442,6 +485,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -453,6 +497,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -466,6 +511,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -477,6 +523,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -490,6 +537,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -501,6 +549,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -514,6 +563,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -525,6 +575,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -538,6 +589,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -549,6 +601,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -562,6 +615,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -573,6 +627,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -586,6 +641,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -597,6 +653,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -610,6 +667,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -621,6 +679,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -634,6 +693,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -645,6 +705,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -658,6 +719,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -669,6 +731,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -682,6 +745,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -693,6 +757,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -706,6 +771,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -717,6 +783,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -730,6 +797,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -741,6 +809,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -754,6 +823,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -765,6 +835,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -778,6 +849,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -789,6 +861,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -802,6 +875,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -813,6 +887,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -826,6 +901,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -837,6 +913,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -850,6 +927,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -861,6 +939,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -918,6 +997,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -929,6 +1009,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -942,6 +1023,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -953,6 +1035,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -966,6 +1049,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -977,6 +1061,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -1012,6 +1097,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1023,6 +1109,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1036,6 +1123,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1047,6 +1135,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1060,6 +1149,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1071,6 +1161,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1084,6 +1175,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1095,6 +1187,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1108,6 +1201,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1119,6 +1213,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1132,6 +1227,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1143,6 +1239,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1156,6 +1253,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1167,6 +1265,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1180,6 +1279,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1191,6 +1291,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1204,6 +1305,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1215,6 +1317,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1228,6 +1331,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1239,6 +1343,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -1251,6 +1356,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "uses_polling": false
@@ -1261,6 +1367,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1274,6 +1381,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1285,6 +1393,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1322,6 +1431,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1333,6 +1443,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1346,6 +1457,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1401,6 +1513,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1414,6 +1527,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1425,6 +1539,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1462,6 +1577,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1473,6 +1589,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1486,6 +1603,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1497,6 +1615,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1510,6 +1629,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1521,6 +1641,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1534,6 +1655,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1545,6 +1667,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1569,6 +1692,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1582,6 +1706,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1593,6 +1718,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1606,6 +1732,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1617,6 +1744,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1630,6 +1758,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1641,6 +1770,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1654,6 +1784,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1665,6 +1796,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1678,6 +1810,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1689,6 +1822,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1702,6 +1836,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1713,6 +1848,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1726,6 +1862,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1737,6 +1874,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -1779,6 +1917,24 @@
     "args": [],
     "benchmark": false,
     "ci_platforms": [
+      "qnx"
+    ],
+    "cpu_cost": 1.0,
+    "exclude_configs": [],
+    "exclude_iomgrs": [],
+    "flaky": false,
+    "gtest": true,
+    "language": "c++",
+    "name": "cfstream_test",
+    "platforms": [
+      "qnx"
+    ],
+    "uses_polling": true
+  },
+  {
+    "args": [],
+    "benchmark": false,
+    "ci_platforms": [
       "linux",
       "mac",
       "posix",
@@ -1794,6 +1950,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1805,6 +1962,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1818,6 +1976,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1829,6 +1988,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1842,6 +2002,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1853,6 +2014,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1866,6 +2028,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1877,6 +2040,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1890,6 +2054,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1901,6 +2066,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1914,6 +2080,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1925,6 +2092,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1938,6 +2106,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1949,6 +2118,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1962,6 +2132,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1973,6 +2144,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1986,6 +2158,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -1997,6 +2170,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2010,6 +2184,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2021,6 +2196,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2034,6 +2210,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2045,6 +2222,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2058,6 +2236,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2069,6 +2248,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2082,6 +2262,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2093,6 +2274,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2106,6 +2288,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2117,6 +2300,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2130,6 +2314,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2161,6 +2346,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2174,6 +2360,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2185,6 +2372,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2198,6 +2386,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2208,6 +2397,7 @@
     "benchmark": false,
     "ci_platforms": [
       "linux",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -2219,6 +2409,7 @@
     "name": "client_channel_test",
     "platforms": [
       "linux",
+      "qnx",
       "posix"
     ],
     "uses_polling": false
@@ -2229,6 +2420,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2242,6 +2434,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2253,6 +2446,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -2265,6 +2459,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "uses_polling": true
@@ -2275,6 +2470,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2288,6 +2484,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2299,6 +2496,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -2321,6 +2519,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2334,6 +2533,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2345,6 +2545,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2358,6 +2559,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2369,6 +2571,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2382,6 +2585,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2393,6 +2597,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2406,6 +2611,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2417,6 +2623,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2430,6 +2637,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2441,6 +2649,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2454,6 +2663,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2465,6 +2675,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2478,6 +2689,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2489,6 +2701,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2502,6 +2715,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2513,6 +2727,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2526,6 +2741,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2557,6 +2773,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2570,6 +2787,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2581,6 +2799,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2594,6 +2813,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2605,6 +2825,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2618,6 +2839,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2629,6 +2851,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2642,6 +2865,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2653,6 +2877,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2666,6 +2891,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2677,6 +2903,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2690,6 +2917,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2701,6 +2929,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2714,6 +2943,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2725,6 +2955,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2738,6 +2969,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2749,6 +2981,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2762,6 +2995,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2773,6 +3007,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2786,6 +3021,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2797,6 +3033,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -2819,6 +3056,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2832,6 +3070,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2843,6 +3082,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2856,6 +3096,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2867,6 +3108,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2880,6 +3122,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2891,6 +3134,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2904,6 +3148,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2915,6 +3160,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2952,6 +3198,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2963,6 +3210,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2976,6 +3224,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -2987,6 +3236,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3000,6 +3250,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3011,6 +3262,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3048,6 +3300,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3059,6 +3312,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -3081,6 +3335,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3118,6 +3373,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3129,6 +3385,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3142,6 +3399,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3151,8 +3409,27 @@
     "args": [],
     "benchmark": false,
     "ci_platforms": [
+      "qnx"
+    ],
+    "cpu_cost": 1.0,
+    "exclude_configs": [],
+    "exclude_iomgrs": [],
+    "flaky": false,
+    "gtest": true,
+    "language": "c++",
+    "name": "end2end_test",
+    "platforms": [
+      "qnx"
+    ],
+    "uses_polling": true
+  },
+  {
+    "args": [],
+    "benchmark": false,
+    "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3190,6 +3467,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3201,6 +3479,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3214,6 +3493,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3225,6 +3505,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3238,6 +3519,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3249,6 +3531,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3262,6 +3545,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3273,6 +3557,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3286,6 +3571,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3297,6 +3583,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3310,6 +3597,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3321,6 +3609,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3334,6 +3623,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3345,6 +3635,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3358,6 +3649,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3369,6 +3661,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3382,6 +3675,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3393,6 +3687,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -3415,6 +3710,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -3437,6 +3733,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3450,6 +3747,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3461,6 +3759,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3474,6 +3773,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3485,6 +3785,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3498,6 +3799,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3509,6 +3811,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3522,6 +3825,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3533,6 +3837,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3546,6 +3851,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3557,6 +3863,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3570,6 +3877,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3581,6 +3889,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3594,6 +3903,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3605,6 +3915,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3618,6 +3929,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3629,6 +3941,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -3651,6 +3964,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3664,6 +3978,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3675,6 +3990,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3688,6 +4004,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3699,6 +4016,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3712,6 +4030,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3723,6 +4042,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3736,6 +4056,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3747,6 +4068,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3760,6 +4082,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3769,8 +4092,27 @@
     "args": [],
     "benchmark": false,
     "ci_platforms": [
+      "qnx"
+    ],
+    "cpu_cost": 1.0,
+    "exclude_configs": [],
+    "exclude_iomgrs": [],
+    "flaky": false,
+    "gtest": true,
+    "language": "c++",
+    "name": "flaky_network_test",
+    "platforms": [
+      "qnx"
+    ],
+    "uses_polling": true
+  },
+  {
+    "args": [],
+    "benchmark": false,
+    "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3784,6 +4126,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3795,6 +4138,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3808,6 +4152,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3819,6 +4164,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -3841,6 +4187,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3854,6 +4201,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3865,6 +4213,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3878,6 +4227,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3889,6 +4239,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3902,6 +4253,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3913,6 +4265,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3926,6 +4279,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -3936,6 +4290,7 @@
     "benchmark": false,
     "ci_platforms": [
       "linux",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -3957,6 +4312,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4018,6 +4374,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4029,6 +4386,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4066,6 +4424,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4077,6 +4436,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4090,6 +4450,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4101,6 +4462,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4114,6 +4476,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4125,6 +4488,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4138,6 +4502,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4149,6 +4514,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4162,6 +4528,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4173,6 +4540,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4186,6 +4554,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4197,6 +4566,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4210,6 +4580,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4221,6 +4592,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4234,6 +4606,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4245,6 +4618,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4258,6 +4632,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4269,6 +4644,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4282,6 +4658,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4293,6 +4670,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4306,6 +4684,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4317,6 +4696,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4330,6 +4710,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4341,6 +4722,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4354,6 +4736,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4365,6 +4748,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4378,6 +4762,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4389,6 +4774,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4402,6 +4788,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4413,6 +4800,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4426,6 +4814,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4437,6 +4826,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4450,6 +4840,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4461,6 +4852,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4474,6 +4866,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4485,6 +4878,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4498,6 +4892,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4508,6 +4903,7 @@
     "benchmark": false,
     "ci_platforms": [
       "linux",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -4529,6 +4925,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4542,6 +4939,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4553,6 +4951,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4566,6 +4965,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4577,6 +4977,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4590,6 +4991,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4601,6 +5003,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4614,6 +5017,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4625,6 +5029,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4638,6 +5043,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4649,6 +5055,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -4671,6 +5078,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4684,6 +5092,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4695,6 +5104,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4708,6 +5118,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4719,6 +5130,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4732,6 +5144,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4743,6 +5156,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4756,6 +5170,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4767,6 +5182,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4780,6 +5196,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4791,6 +5208,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4804,6 +5222,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4815,6 +5234,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4828,6 +5248,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4839,6 +5260,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4852,6 +5274,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4863,6 +5286,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4876,6 +5300,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4887,6 +5312,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4900,6 +5326,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4911,6 +5338,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4972,6 +5400,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -4983,6 +5412,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -5005,6 +5435,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -5027,6 +5458,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5040,6 +5472,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5051,6 +5484,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5064,6 +5498,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5075,6 +5510,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5088,6 +5524,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5099,6 +5536,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5112,6 +5550,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5123,6 +5562,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5136,6 +5576,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5147,6 +5588,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5160,6 +5602,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5191,6 +5634,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5204,6 +5648,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5215,6 +5660,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5252,6 +5698,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5263,6 +5710,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5300,6 +5748,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5311,6 +5760,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5324,6 +5774,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5335,6 +5786,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5348,6 +5800,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5358,6 +5811,7 @@
     "benchmark": false,
     "ci_platforms": [
       "linux",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5381,6 +5835,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5394,6 +5849,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5405,6 +5861,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5418,6 +5875,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5429,6 +5887,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5442,6 +5901,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5453,6 +5913,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5466,6 +5927,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5477,6 +5939,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5490,6 +5953,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5501,6 +5965,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5514,6 +5979,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5525,6 +5991,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5538,6 +6005,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5549,6 +6017,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5562,6 +6031,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5573,6 +6043,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5586,6 +6057,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5597,6 +6069,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5610,6 +6083,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5621,6 +6095,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5634,6 +6109,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5645,6 +6121,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5658,6 +6135,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5669,6 +6147,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5682,6 +6161,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5692,6 +6172,7 @@
     "benchmark": false,
     "ci_platforms": [
       "linux",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -5713,6 +6194,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5750,6 +6232,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5761,6 +6244,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -5783,6 +6267,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5796,6 +6281,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5807,6 +6293,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5844,6 +6331,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5855,6 +6343,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5868,6 +6357,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5879,6 +6369,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5892,6 +6383,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5903,6 +6395,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5916,6 +6409,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5927,6 +6421,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5940,6 +6435,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5951,6 +6447,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5964,6 +6461,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5975,6 +6473,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5988,6 +6487,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -5998,6 +6498,7 @@
     "benchmark": false,
     "ci_platforms": [
       "linux",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -6019,6 +6520,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6032,6 +6534,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6043,6 +6546,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6056,6 +6560,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6067,6 +6572,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6080,6 +6586,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6091,6 +6598,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6104,6 +6612,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6115,6 +6624,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6128,6 +6638,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6139,6 +6650,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6176,6 +6688,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6187,6 +6700,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6200,6 +6714,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6211,6 +6726,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6224,6 +6740,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6235,6 +6752,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6248,6 +6766,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6259,6 +6778,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6272,6 +6792,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6283,6 +6804,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -6305,6 +6827,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6318,6 +6841,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6329,6 +6853,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6342,6 +6867,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6353,6 +6879,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6377,6 +6904,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6390,6 +6918,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6401,6 +6930,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6414,6 +6944,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6425,6 +6956,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6438,6 +6970,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6449,6 +6982,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6462,6 +6996,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6473,6 +7008,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6486,6 +7022,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6497,6 +7034,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6510,6 +7048,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6521,6 +7060,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -6543,6 +7083,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6556,6 +7097,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6567,6 +7109,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6580,6 +7123,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6591,6 +7135,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6604,6 +7149,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6615,6 +7161,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6628,6 +7175,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6639,6 +7187,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6652,6 +7201,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6663,6 +7213,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6676,6 +7227,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6687,6 +7239,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6700,6 +7253,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6711,6 +7265,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6724,6 +7279,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6735,6 +7291,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -6757,6 +7314,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6770,6 +7328,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6781,6 +7340,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6794,6 +7354,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6805,6 +7366,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6818,6 +7380,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6829,6 +7392,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6842,6 +7406,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6853,6 +7418,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6866,6 +7432,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6875,8 +7442,27 @@
     "args": [],
     "benchmark": false,
     "ci_platforms": [
+      "qnx"
+    ],
+    "cpu_cost": 1.0,
+    "exclude_configs": [],
+    "exclude_iomgrs": [],
+    "flaky": false,
+    "gtest": true,
+    "language": "c++",
+    "name": "periodic_update_test",
+    "platforms": [
+      "qnx"
+    ],
+    "uses_polling": true
+  },
+  {
+    "args": [],
+    "benchmark": false,
+    "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6890,6 +7476,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6901,6 +7488,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6914,6 +7502,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6925,6 +7514,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6938,6 +7528,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6949,6 +7540,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6962,6 +7554,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6973,6 +7566,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6986,6 +7580,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -6997,6 +7592,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7010,6 +7606,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7021,6 +7618,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7034,6 +7632,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7045,6 +7644,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7058,6 +7658,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7069,6 +7670,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7082,6 +7684,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7093,6 +7696,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7106,6 +7710,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7117,6 +7722,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -7139,6 +7745,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -7160,6 +7767,7 @@
     "benchmark": false,
     "ci_platforms": [
       "linux",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -7180,6 +7788,7 @@
     "benchmark": false,
     "ci_platforms": [
       "linux",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -7221,6 +7830,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7234,6 +7844,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7245,6 +7856,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7258,6 +7870,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7269,6 +7882,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7282,6 +7896,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7293,6 +7908,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7306,6 +7922,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7317,6 +7934,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7330,6 +7948,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7341,6 +7960,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7378,6 +7998,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7389,6 +8010,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7402,6 +8024,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7413,6 +8036,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7426,6 +8050,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7437,6 +8062,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7450,6 +8076,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7461,6 +8088,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7474,6 +8102,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7485,6 +8114,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7498,6 +8128,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7509,6 +8140,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7546,6 +8178,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7557,6 +8190,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7570,6 +8204,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7581,6 +8216,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7594,6 +8230,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7605,6 +8242,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7618,6 +8256,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7629,6 +8268,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7642,6 +8282,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7653,6 +8294,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7666,6 +8308,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7677,6 +8320,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7690,6 +8334,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7701,6 +8346,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7714,6 +8360,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7725,6 +8372,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -7747,6 +8395,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7760,6 +8409,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7771,6 +8421,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7784,6 +8435,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7797,6 +8449,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -7819,6 +8472,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7832,6 +8486,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7845,6 +8500,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -7867,6 +8523,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7880,6 +8537,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7891,6 +8549,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7904,6 +8563,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7915,6 +8575,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7928,6 +8589,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7939,6 +8601,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7952,6 +8615,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7963,6 +8627,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7976,6 +8641,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -7987,6 +8653,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8000,6 +8667,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8011,6 +8679,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8024,6 +8693,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8035,6 +8705,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8048,6 +8719,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8059,6 +8731,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8072,6 +8745,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8083,6 +8757,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8096,6 +8771,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8107,6 +8783,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8120,6 +8797,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8131,6 +8809,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8144,6 +8823,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8155,6 +8835,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8168,6 +8849,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8179,6 +8861,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8192,6 +8875,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8203,6 +8887,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8216,6 +8901,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8227,6 +8913,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8240,6 +8927,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8251,6 +8939,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8264,6 +8953,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8275,6 +8965,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8288,6 +8979,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8299,6 +8991,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8312,6 +9005,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8323,6 +9017,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8336,6 +9031,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8347,6 +9043,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8360,6 +9057,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8371,6 +9069,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8384,6 +9083,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8395,6 +9095,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8408,6 +9109,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8419,6 +9121,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8432,6 +9135,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8443,6 +9147,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8456,6 +9161,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8467,6 +9173,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8480,6 +9187,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8491,6 +9199,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8504,6 +9213,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8515,6 +9225,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8528,6 +9239,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8539,6 +9251,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8552,6 +9265,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8563,6 +9277,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8576,6 +9291,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8587,6 +9303,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8600,6 +9317,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8611,6 +9329,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8624,6 +9343,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8635,6 +9355,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8648,6 +9369,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8659,6 +9381,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8672,6 +9395,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8683,6 +9407,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8696,6 +9421,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8707,6 +9433,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8720,6 +9447,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8731,6 +9459,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8744,6 +9473,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8755,6 +9485,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8768,6 +9499,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8779,6 +9511,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8792,6 +9525,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8803,6 +9537,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8816,6 +9551,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8825,8 +9561,27 @@
     "args": [],
     "benchmark": false,
     "ci_platforms": [
+      "qnx"
+    ],
+    "cpu_cost": 1.0,
+    "exclude_configs": [],
+    "exclude_iomgrs": [],
+    "flaky": false,
+    "gtest": true,
+    "language": "c++",
+    "name": "rls_end2end_test",
+    "platforms": [
+      "qnx"
+    ],
+    "uses_polling": true
+  },
+  {
+    "args": [],
+    "benchmark": false,
+    "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8888,6 +9643,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8899,6 +9655,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8912,6 +9669,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8923,6 +9681,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8936,6 +9695,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8947,6 +9707,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8960,6 +9721,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8969,8 +9731,27 @@
     "args": [],
     "benchmark": false,
     "ci_platforms": [
+      "qnx"
+    ],
+    "cpu_cost": 1.0,
+    "exclude_configs": [],
+    "exclude_iomgrs": [],
+    "flaky": false,
+    "gtest": true,
+    "language": "c++",
+    "name": "secure_endpoint_test",
+    "platforms": [
+      "qnx"
+    ],
+    "uses_polling": true
+  },
+  {
+    "args": [],
+    "benchmark": false,
+    "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8984,6 +9765,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -8995,6 +9777,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9008,6 +9791,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9019,6 +9803,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9032,6 +9817,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9043,6 +9829,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9056,6 +9843,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9067,6 +9855,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -9089,6 +9878,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -9131,6 +9921,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9144,6 +9935,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9155,6 +9947,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9168,6 +9961,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9179,6 +9973,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9192,6 +9987,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9203,6 +9999,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9216,6 +10013,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9227,6 +10025,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9240,6 +10039,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9251,6 +10051,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9264,6 +10065,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9275,6 +10077,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9288,6 +10091,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9299,6 +10103,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9312,6 +10117,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9323,6 +10129,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -9345,6 +10152,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -9367,6 +10175,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9380,6 +10189,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9391,6 +10201,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9404,6 +10215,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9415,6 +10227,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9428,6 +10241,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9439,6 +10253,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9452,6 +10267,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9463,6 +10279,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9476,6 +10293,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9487,6 +10305,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9500,6 +10319,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9511,6 +10331,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9524,6 +10345,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9535,6 +10357,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9548,6 +10371,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9559,6 +10383,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9572,6 +10397,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9583,6 +10409,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9596,6 +10423,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9607,6 +10435,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9620,6 +10449,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9631,6 +10461,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9644,6 +10475,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9655,6 +10487,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9668,6 +10501,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9679,6 +10513,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9692,6 +10527,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9703,6 +10539,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9716,6 +10553,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9727,6 +10565,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9740,6 +10579,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9751,6 +10591,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9764,6 +10605,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9775,6 +10617,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9788,6 +10631,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9799,6 +10643,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -9821,6 +10666,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9834,6 +10680,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9845,6 +10692,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9858,6 +10706,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9869,6 +10718,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -9891,6 +10741,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -9913,6 +10764,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -9935,6 +10787,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9948,6 +10801,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9959,6 +10813,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9972,6 +10827,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9983,6 +10839,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -9996,6 +10853,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10007,6 +10865,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10020,6 +10879,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10031,6 +10891,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10068,6 +10929,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10079,6 +10941,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10092,6 +10955,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10103,6 +10967,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10116,6 +10981,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10127,6 +10993,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10140,6 +11007,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10151,6 +11019,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -10173,6 +11042,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10186,6 +11056,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10197,6 +11068,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10210,6 +11082,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10221,6 +11094,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10234,6 +11108,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10245,6 +11120,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10306,6 +11182,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10317,6 +11194,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10330,6 +11208,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10341,6 +11220,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10354,6 +11234,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10365,6 +11246,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -10387,6 +11269,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -10408,6 +11291,7 @@
     "benchmark": false,
     "ci_platforms": [
       "linux",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -10429,6 +11313,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -10451,6 +11336,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10475,6 +11361,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10488,6 +11375,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10499,6 +11387,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10512,6 +11401,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10523,6 +11413,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10536,6 +11427,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10547,6 +11439,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10560,6 +11453,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10571,6 +11465,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10584,6 +11479,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10595,6 +11491,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10608,6 +11505,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10619,6 +11517,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10632,6 +11531,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10643,6 +11543,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10656,6 +11557,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10667,6 +11569,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10680,6 +11583,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10691,6 +11595,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10704,6 +11609,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10715,6 +11621,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10728,6 +11635,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10738,6 +11646,7 @@
     "benchmark": false,
     "ci_platforms": [
       "linux",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -10749,6 +11658,7 @@
     "name": "test_core_transport_test_suite_chaotic_good_test",
     "platforms": [
       "linux",
+      "qnx",
       "posix"
     ],
     "uses_polling": false
@@ -10759,6 +11669,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10772,6 +11683,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10783,6 +11695,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10796,6 +11709,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10807,6 +11721,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10820,6 +11735,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10831,6 +11747,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10868,6 +11785,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10879,6 +11797,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10892,6 +11811,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10903,6 +11823,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10916,6 +11837,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10927,6 +11849,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10940,6 +11863,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10951,6 +11875,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10964,6 +11889,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10975,6 +11901,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10988,6 +11915,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -10999,6 +11927,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11012,6 +11941,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11023,6 +11953,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -11045,6 +11976,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -11067,6 +11999,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11080,6 +12013,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11091,6 +12025,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11128,6 +12063,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11139,6 +12075,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11152,6 +12089,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11161,8 +12099,27 @@
     "args": [],
     "benchmark": false,
     "ci_platforms": [
+      "qnx"
+    ],
+    "cpu_cost": 1.0,
+    "exclude_configs": [],
+    "exclude_iomgrs": [],
+    "flaky": false,
+    "gtest": true,
+    "language": "c++",
+    "name": "timer_test",
+    "platforms": [
+      "qnx"
+    ],
+    "uses_polling": true
+  },
+  {
+    "args": [],
+    "benchmark": false,
+    "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11176,6 +12133,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11187,6 +12145,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11224,6 +12183,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11235,6 +12195,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11248,6 +12209,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11257,8 +12219,27 @@
     "args": [],
     "benchmark": false,
     "ci_platforms": [
+      "qnx"
+    ],
+    "cpu_cost": 1.0,
+    "exclude_configs": [],
+    "exclude_iomgrs": [],
+    "flaky": false,
+    "gtest": true,
+    "language": "c++",
+    "name": "too_many_pings_test",
+    "platforms": [
+      "qnx"
+    ],
+    "uses_polling": true
+  },
+  {
+    "args": [],
+    "benchmark": false,
+    "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11272,6 +12253,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11283,6 +12265,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -11305,6 +12288,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11318,6 +12302,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11329,6 +12314,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11342,6 +12328,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11353,6 +12340,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11366,6 +12354,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11377,6 +12366,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11390,6 +12380,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11401,6 +12392,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11414,6 +12406,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11425,6 +12418,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11438,6 +12432,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11449,6 +12444,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11462,6 +12458,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11473,6 +12470,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11510,6 +12508,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11521,6 +12520,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11534,6 +12534,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11545,6 +12546,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11558,6 +12560,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11569,6 +12572,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11582,6 +12586,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11593,6 +12598,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11606,6 +12612,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11617,6 +12624,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11630,6 +12638,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11641,6 +12650,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11654,6 +12664,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11665,6 +12676,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11678,6 +12690,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11689,6 +12702,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -11711,6 +12725,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11724,6 +12739,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11735,6 +12751,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11748,6 +12765,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11758,6 +12776,7 @@
     "benchmark": false,
     "ci_platforms": [
       "linux",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11781,6 +12800,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11794,6 +12814,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11804,6 +12825,7 @@
     "benchmark": false,
     "ci_platforms": [
       "linux",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11827,6 +12849,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11840,6 +12863,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11851,6 +12875,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11864,6 +12889,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11875,6 +12901,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11888,6 +12915,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11899,6 +12927,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11912,6 +12941,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11923,6 +12953,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11936,6 +12967,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11947,6 +12979,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -11959,6 +12992,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "uses_polling": true
@@ -11969,6 +13003,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11982,6 +13017,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -11993,6 +13029,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12006,6 +13043,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12017,6 +13055,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12030,6 +13069,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12041,6 +13081,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12054,6 +13095,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12065,6 +13107,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12078,6 +13121,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12089,6 +13133,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12102,6 +13147,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12113,6 +13159,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12126,6 +13173,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12137,6 +13185,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12150,6 +13199,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12161,6 +13211,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -12173,6 +13224,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "uses_polling": true
@@ -12183,6 +13235,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12196,6 +13249,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12207,6 +13261,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -12219,6 +13274,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "uses_polling": true
@@ -12229,6 +13285,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12242,6 +13299,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12253,6 +13311,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12266,6 +13325,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12277,6 +13337,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12290,6 +13351,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12301,6 +13363,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12314,6 +13377,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12325,6 +13389,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -12337,6 +13402,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "uses_polling": true
@@ -12347,6 +13413,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12360,6 +13427,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12371,6 +13439,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12384,6 +13453,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12395,6 +13465,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -12417,6 +13488,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -12439,6 +13511,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12452,6 +13525,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12463,6 +13537,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12476,6 +13551,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12487,6 +13563,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix"
     ],
     "cpu_cost": 1.0,
@@ -12509,6 +13586,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12525,6 +13603,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ]
@@ -12535,6 +13614,7 @@
     "ci_platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ],
@@ -12551,6 +13631,7 @@
     "platforms": [
       "linux",
       "mac",
+      "qnx",
       "posix",
       "windows"
     ]

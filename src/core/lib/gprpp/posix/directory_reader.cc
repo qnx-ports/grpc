@@ -25,7 +25,7 @@
 #include <grpc/support/port_platform.h>
 
 #if defined(GPR_LINUX) || defined(GPR_ANDROID) || defined(GPR_FREEBSD) || \
-    defined(GPR_APPLE)
+    defined(GPR_APPLE) || defined(GPR_QNX)
 
 #include <dirent.h>
 

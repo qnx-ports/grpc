@@ -15,8 +15,28 @@
 # The CMakeLists.txt for BoringSSL doesn't propagate include directories
 # transitively so `_gRPC_SSL_INCLUDE_DIR` should be set for gRPC
 # to find header files.
-
-if(gRPC_SSL_PROVIDER STREQUAL "module")
+if(QNX)
+  find_library(OPENSSL_SSL_LIBRARY
+  NAMES
+    ssl
+  HINTS
+    "${CMAKE_INSTALL_PREFIX}/../lib/"
+    "${CMAKE_INSTALL_PREFIX}/lib/"
+  REQUIRED
+  )
+  find_library(OPENSSL_CRYPTO_LIBRARY
+  NAMES
+    crypto
+  PATHS
+    "${CMAKE_INSTALL_PREFIX}/../lib/"
+    "${CMAKE_INSTALL_PREFIX}/lib/"
+  NO_DEFAULT_PATH
+  REQUIRED
+  )
+  
+  set(_gRPC_SSL_LIBRARIES ${OPENSSL_SSL_LIBRARY} ${OPENSSL_CRYPTO_LIBRARY} )
+  set(_gRPC_SSL_INCLUDE_DIR "${CMAKE_INSTALL_PREFIX}/../../usr/include")
+elseif(gRPC_SSL_PROVIDER STREQUAL "module")
   if(NOT BORINGSSL_ROOT_DIR)
     set(BORINGSSL_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/boringssl-with-bazel)
   endif()
@@ -64,7 +84,6 @@ elseif(gRPC_SSL_PROVIDER STREQUAL "package")
   # project itself does not provide installation support in its CMakeLists.txt
   # See https://cmake.org/cmake/help/v3.6/module/FindOpenSSL.html
   find_package(OpenSSL REQUIRED)
-  
   if(TARGET OpenSSL::SSL)
     set(_gRPC_SSL_LIBRARIES OpenSSL::SSL OpenSSL::Crypto)
   else()
