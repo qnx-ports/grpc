@@ -92,16 +92,16 @@ void test_bind_server_twice(void) {
   grpc_server_credentials_release(insecure_creds);
   grpc_server_credentials* another_insecure_creds =
       grpc_insecure_server_credentials_create();
-  #if __QNX__ < 800
-  // As of now in QNX, the socket flag `SO_REUSEADDR` will treate 
+#if __QNX__ < 800
+  // As of now in QNX, the socket flag `SO_REUSEADDR` will treate
   // 0.0.0.0 and :: as two different addresses even when dual-stack
   // is on (IPV6_V6ONLY is off).
   ASSERT_EQ(port, grpc_server_add_http2_port(server2, addr.c_str(),
-                                          another_insecure_creds));
-  #else
+                                             another_insecure_creds));
+#else
   ASSERT_EQ(0, grpc_server_add_http2_port(server2, addr.c_str(),
                                           another_insecure_creds));
-  #endif //__QNX__
+#endif  //__QNX__
   grpc_server_credentials_release(another_insecure_creds);
   grpc_server_credentials* fake_creds =
       grpc_fake_transport_security_server_credentials_create();
