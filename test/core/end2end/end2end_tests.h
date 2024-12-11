@@ -425,12 +425,13 @@ class CoreEnd2endTest : public ::testing::Test {
     expectations_ = 0;
     cq_verifier().Verify(
         timeout.value_or(g_is_fuzzing_core_e2e_tests ? Duration::Minutes(10)
-        #if defined(GPR_QNX)
+#if defined(GPR_QNX)
                                                      : Duration::Seconds(30)
-        #else
+#else
                                                      : Duration::Seconds(10)
-        #endif
-    ), whence);
+#endif
+                             ),
+        whence);
   }
 
   // Initialize the client.
