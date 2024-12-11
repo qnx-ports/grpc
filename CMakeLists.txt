@@ -602,7 +602,7 @@ function(protobuf_generate_grpc_cpp_with_import_path_correction FILE_LOCATION IM
 
   #if cross-compiling, find host plugin
   if(CMAKE_CROSSCOMPILING)
-    find_program(_gRPC_CPP_PLUGIN grpc_cpp_plugin HINTS "${HOST_GRPC_PATH}")
+    find_program(_gRPC_CPP_PLUGIN grpc_cpp_plugin HINTS ${HOST_GRPC_PATH} NO_CMAKE_FIND_ROOT_PATH)
   else()
     set(_gRPC_CPP_PLUGIN $<TARGET_FILE:grpc_cpp_plugin>)
   endif()
