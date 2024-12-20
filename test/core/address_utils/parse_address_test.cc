@@ -29,7 +29,11 @@
 #endif  // GRPC_HAVE_UNIX_SOCKET
 
 #ifdef GRPC_HAVE_VSOCK
+#ifdef GPR_QNX
+#include <vm_sockets.h>
+#else
 #include <linux/vm_sockets.h>
+#endif // GPR_QNX
 #endif
 
 #include <string>

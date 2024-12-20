@@ -23,6 +23,9 @@
 #include <stdio.h>
 #include <string.h>
 
+#if defined(GPR_QNX)
+#include "absl/log/vlog_is_on.h"
+#endif //GPR_QNX
 #include "absl/log/globals.h"
 #include "absl/strings/match.h"
 #include "absl/strings/str_cat.h"

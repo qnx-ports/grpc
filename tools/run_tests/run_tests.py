@@ -73,7 +73,7 @@ def platform_string():
     return jobset.platform_string()
 
 
-_DEFAULT_TIMEOUT_SECONDS = 5 * 60
+_DEFAULT_TIMEOUT_SECONDS = 10 * 60 if platform.system() == "QNX" else 7 * 60
 _PRE_BUILD_STEP_TIMEOUT_SECONDS = 10 * 60
 
 
@@ -518,6 +518,9 @@ class CLanguage(object):
                 ]
                 + self._cmake_configure_extra_args
             ]
+        elif self.platform == "qnx":
+            # QNX tests should be cross-compiled already
+            return []
         else:
             return [
                 ["tools/run_tests/helper_scripts/build_cxx.sh"]
@@ -544,6 +547,8 @@ class CLanguage(object):
 
     def post_tests_steps(self):
         if self.platform == "windows":
+            return []
+        elif self.platform == "qnx":
             return []
         else:
             return [["tools/run_tests/helper_scripts/post_tests_c.sh"]]

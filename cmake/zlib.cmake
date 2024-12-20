@@ -16,7 +16,19 @@
 # transitively so `_gRPC_ZLIB_INCLUDE_DIR` should be set for gRPC
 # to find header files.
 
-if(gRPC_ZLIB_PROVIDER STREQUAL "module")
+if(QNX)
+  find_library(ZLIB_LIBRARY
+  NAMES
+    z
+  HINTS
+    "${CMAKE_INSTALL_PREFIX}/../lib/"
+    "${CMAKE_INSTALL_PREFIX}/lib/"
+  REQUIRED
+  )
+
+  set(_gRPC_ZLIB_LIBRARIES ${ZLIB_LIBRARY} )
+  set(_gRPC_ZLIB_INCLUDE_DIR "${CMAKE_INSTALL_PREFIX}/../../usr/include")
+elseif(gRPC_ZLIB_PROVIDER STREQUAL "module")
   if(NOT ZLIB_ROOT_DIR)
     set(ZLIB_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/zlib)
   endif()

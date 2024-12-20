@@ -272,6 +272,8 @@ if(UNIX)
     set(_gRPC_PLATFORM_IOS ON)
   elseif(${CMAKE_SYSTEM_NAME} MATCHES "Android")
     set(_gRPC_PLATFORM_ANDROID ON)
+  elseif("${CMAKE_SYSTEM_NAME}" MATCHES "QNX") #FOR QNX, CMAKE_SYSTEM_NAME is set to a variable "QNX"
+    set(_gRPC_PLATFORM_QNX ON)
   else()
     set(_gRPC_PLATFORM_POSIX ON)
   endif()
@@ -336,7 +338,7 @@ else()
   set(_gRPC_CORE_NOSTDCXX_FLAGS "")
 endif()
 
-if(UNIX AND NOT HAIKU)
+if(UNIX AND NOT (HAIKU OR QNX))
   # -pthread does more than -lpthread
   set(THREADS_PREFER_PTHREAD_FLAG ON)
   find_package(Threads)
@@ -347,6 +349,10 @@ if(UNIX AND NOT HAIKU)
       set(_gRPC_ALLTARGETS_LIBRARIES ${_gRPC_ALLTARGETS_LIBRARIES} rt)
     endif()
   endif()
+endif()
+
+if(_gRPC_PLATFORM_QNX)
+  set(_gRPC_ALLTARGETS_LIBRARIES ${CMAKE_DL_LIBS} m)
 endif()
 
 include(CheckCXXSourceCompiles)
@@ -596,7 +602,7 @@ function(protobuf_generate_grpc_cpp_with_import_path_correction FILE_LOCATION IM
 
   #if cross-compiling, find host plugin
   if(CMAKE_CROSSCOMPILING)
-    find_program(_gRPC_CPP_PLUGIN grpc_cpp_plugin)
+    find_program(_gRPC_CPP_PLUGIN grpc_cpp_plugin HINTS ${HOST_GRPC_PATH} NO_CMAKE_FIND_ROOT_PATH)
   else()
     set(_gRPC_CPP_PLUGIN $<TARGET_FILE:grpc_cpp_plugin>)
   endif()
@@ -1617,6 +1623,26 @@ if(gRPC_BUILD_TESTS)
 
   add_custom_target(buildtests
     DEPENDS buildtests_c buildtests_cxx)
+
+  if (QNX AND gRPC_INSTALL)
+    set(gRPC_TESTS_FOLDER "grpc_tests")
+    set(gRPC_TESTS_INSTALL_BINDIR ${gRPC_INSTALL_BINDIR}/${gRPC_TESTS_FOLDER}/cmake/build)
+    function(QNX_INSTALL_TEST TEST_TARGET)
+      if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+        install(TARGETS ${TEST_TARGET}
+          RUNTIME DESTINATION ${gRPC_TESTS_INSTALL_BINDIR}
+          BUNDLE DESTINATION  ${gRPC_TESTS_INSTALL_BINDIR}
+          LIBRARY DESTINATION ${gRPC_INSTALL_LIBDIR}
+          ARCHIVE DESTINATION ${gRPC_INSTALL_LIBDIR}
+        )
+      endif()
+    endfunction()
+    
+    install(DIRECTORY tools/run_tests DESTINATION ${gRPC_INSTALL_BINDIR}/${gRPC_TESTS_FOLDER}/tools)
+    install(DIRECTORY test/core/security/authorization/test_policies DESTINATION ${gRPC_INSTALL_BINDIR}/${gRPC_TESTS_FOLDER}/test/core/security/authorization)
+    install(DIRECTORY src/core/tsi/test_creds DESTINATION ${gRPC_INSTALL_BINDIR}/${gRPC_TESTS_FOLDER}/src/core/tsi/)
+    # install(TARGETS buildtests DESTINATION ${gRPC_INSTALL_BINDIR}/grpc_tests/cmake/build)
+  endif()
 endif()
 
 
@@ -2844,6 +2870,17 @@ if(WIN32 AND MSVC)
   endif()
 endif()
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  install(TARGETS grpc_test_util
+    RUNTIME DESTINATION  ${gRPC_INSTALL_BINDIR}
+    BUNDLE DESTINATION  ${gRPC_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${gRPC_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${gRPC_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION $(gRPC_INSTALL_INCLUDEDIR)
+    PRIVATE_HEADER DESTINATION $(gRPC_INSTALL_INCLUDEDIR)
+  )
+endif()
+
 target_include_directories(grpc_test_util
   PUBLIC $<INSTALL_INTERFACE:${gRPC_INSTALL_INCLUDEDIR}> $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   PRIVATE
@@ -2907,6 +2944,17 @@ if(WIN32 AND MSVC)
       DESTINATION ${gRPC_INSTALL_LIBDIR} OPTIONAL
     )
   endif()
+endif()
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  install(TARGETS grpc_test_util_unsecure
+    RUNTIME DESTINATION  ${gRPC_INSTALL_BINDIR}
+    BUNDLE DESTINATION  ${gRPC_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${gRPC_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${gRPC_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION $(gRPC_INSTALL_INCLUDEDIR)
+    PRIVATE_HEADER DESTINATION $(gRPC_INSTALL_INCLUDEDIR)
+  )
 endif()
 
 target_include_directories(grpc_test_util_unsecure
@@ -3540,6 +3588,17 @@ if(WIN32 AND MSVC)
   endif()
 endif()
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  install(TARGETS gtest
+    RUNTIME DESTINATION ${gRPC_INSTALL_BINDIR}
+    BUNDLE DESTINATION  ${gRPC_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${gRPC_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${gRPC_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION $(gRPC_INSTALL_INCLUDEDIR)
+    PRIVATE_HEADER DESTINATION $(gRPC_INSTALL_INCLUDEDIR)
+  )
+endif()
+
 target_include_directories(gtest
   PUBLIC $<INSTALL_INTERFACE:${gRPC_INSTALL_INCLUDEDIR}> $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   PRIVATE
@@ -3574,6 +3633,9 @@ target_link_libraries(gtest
   absl::variant
 )
 
+if (QNX)
+  target_link_libraries(gtest ${CMAKE_THREAD_LIBS_INIT} regex)
+endif()
 
 endif()
 
@@ -4022,6 +4084,17 @@ if(WIN32 AND MSVC)
       DESTINATION ${gRPC_INSTALL_LIBDIR} OPTIONAL
     )
   endif()
+endif()
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  install(TARGETS benchmark_helpers
+    RUNTIME DESTINATION ${gRPC_INSTALL_BINDIR}
+    BUNDLE DESTINATION  ${gRPC_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${gRPC_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${gRPC_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION $(gRPC_INSTALL_INCLUDEDIR)
+    PRIVATE_HEADER DESTINATION $(gRPC_INSTALL_INCLUDEDIR)
+  )
 endif()
 
 target_include_directories(benchmark_helpers
@@ -4654,6 +4727,17 @@ if(WIN32 AND MSVC)
   endif()
 endif()
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  install(TARGETS grpc++_test
+    RUNTIME DESTINATION ${gRPC_INSTALL_BINDIR}
+    BUNDLE DESTINATION  ${gRPC_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${gRPC_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${gRPC_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION $(gRPC_INSTALL_INCLUDEDIR)
+    PRIVATE_HEADER DESTINATION $(gRPC_INSTALL_INCLUDEDIR)
+  )
+endif()
+
 target_include_directories(grpc++_test
   PUBLIC $<INSTALL_INTERFACE:${gRPC_INSTALL_INCLUDEDIR}> $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   PRIVATE
@@ -4723,6 +4807,17 @@ if(WIN32 AND MSVC)
       DESTINATION ${gRPC_INSTALL_LIBDIR} OPTIONAL
     )
   endif()
+endif()
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  install(TARGETS grpc++_test_config
+    RUNTIME DESTINATION ${gRPC_INSTALL_BINDIR}
+    BUNDLE DESTINATION  ${gRPC_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${gRPC_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${gRPC_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION $(gRPC_INSTALL_INCLUDEDIR)
+    PRIVATE_HEADER DESTINATION $(gRPC_INSTALL_INCLUDEDIR)
+  )
 endif()
 
 target_include_directories(grpc++_test_config
@@ -4796,6 +4891,17 @@ if(WIN32 AND MSVC)
       DESTINATION ${gRPC_INSTALL_LIBDIR} OPTIONAL
     )
   endif()
+endif()
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  install(TARGETS grpc++_test_util
+    RUNTIME DESTINATION ${gRPC_INSTALL_BINDIR}
+    BUNDLE DESTINATION  ${gRPC_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${gRPC_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${gRPC_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION $(gRPC_INSTALL_INCLUDEDIR)
+    PRIVATE_HEADER DESTINATION $(gRPC_INSTALL_INCLUDEDIR)
+  )
 endif()
 
 target_include_directories(grpc++_test_util
@@ -5877,6 +5983,10 @@ target_link_libraries(multiple_server_queues_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(multiple_server_queues_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -6001,6 +6111,10 @@ target_link_libraries(test_core_iomgr_timer_list_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_core_iomgr_timer_list_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -6050,6 +6164,10 @@ target_link_libraries(activity_test
   absl::statusor
   gpr
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(activity_test)
+endif()
 
 
 endif()
@@ -6221,6 +6339,10 @@ target_link_libraries(admin_services_end2end_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(admin_services_end2end_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -6366,6 +6488,10 @@ target_link_libraries(alloc_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(alloc_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -6407,6 +6533,10 @@ target_link_libraries(alpn_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(alpn_test)
+endif()
 
 
 endif()
@@ -6508,6 +6638,10 @@ target_link_libraries(alts_counter_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(alts_counter_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -6551,6 +6685,10 @@ target_link_libraries(alts_crypt_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(alts_crypt_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -6593,6 +6731,10 @@ target_link_libraries(alts_crypter_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(alts_crypter_test)
+endif()
 
 
 endif()
@@ -6638,6 +6780,10 @@ target_link_libraries(alts_frame_protector_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(alts_frame_protector_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -6680,6 +6826,10 @@ target_link_libraries(alts_grpc_record_protocol_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(alts_grpc_record_protocol_test)
+endif()
 
 
 endif()
@@ -6724,6 +6874,10 @@ target_link_libraries(alts_handshaker_client_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(alts_handshaker_client_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -6766,6 +6920,10 @@ target_link_libraries(alts_iovec_record_protocol_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(alts_iovec_record_protocol_test)
+endif()
 
 
 endif()
@@ -6818,6 +6976,10 @@ target_link_libraries(alts_security_connector_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(alts_security_connector_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -6861,6 +7023,10 @@ target_link_libraries(alts_tsi_handshaker_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(alts_tsi_handshaker_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -6903,6 +7069,10 @@ target_link_libraries(alts_tsi_utils_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(alts_tsi_utils_test)
+endif()
 
 
 endif()
@@ -6948,6 +7118,10 @@ target_link_libraries(alts_util_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(alts_util_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -6991,6 +7165,10 @@ target_link_libraries(alts_zero_copy_grpc_protector_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(alts_zero_copy_grpc_protector_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -7033,6 +7211,10 @@ target_link_libraries(arena_promise_test
   grpc_test_util_unsecure
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(arena_promise_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -7074,6 +7256,10 @@ target_link_libraries(arena_test
   gtest
   grpc_test_util_unsecure
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(arena_test)
+endif()
 
 
 endif()
@@ -7142,6 +7328,10 @@ target_link_libraries(async_end2end_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(async_end2end_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -7193,6 +7383,10 @@ target_link_libraries(auth_context_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(auth_context_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -7235,6 +7429,10 @@ target_link_libraries(auth_property_iterator_test
   gtest
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(auth_property_iterator_test)
+endif()
 
 
 endif()
@@ -7287,6 +7485,10 @@ target_link_libraries(authorization_matchers_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(authorization_matchers_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -7333,6 +7535,10 @@ target_link_libraries(authorization_policy_provider_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(authorization_policy_provider_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -7375,6 +7581,10 @@ target_link_libraries(avl_test
   absl::hash
   gpr
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(avl_test)
+endif()
 
 
 endif()
@@ -7426,6 +7636,10 @@ target_link_libraries(aws_request_signer_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(aws_request_signer_test)
+endif()
 
 
 endif()
@@ -7486,6 +7700,10 @@ target_link_libraries(backend_metrics_lb_policy_test
   grpc++_test_config
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(backend_metrics_lb_policy_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -7527,6 +7745,10 @@ target_link_libraries(backoff_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(backoff_test)
+endif()
 
 
 endif()
@@ -7591,6 +7813,10 @@ target_link_libraries(bad_ping_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(bad_ping_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -7633,6 +7859,10 @@ target_link_libraries(bad_server_response_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(bad_server_response_test)
+endif()
 
 
 endif()
@@ -7790,6 +8020,10 @@ target_link_libraries(bad_streaming_id_bad_client_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(bad_streaming_id_bad_client_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -7834,6 +8068,10 @@ target_link_libraries(badreq_bad_client_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(badreq_bad_client_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -7875,6 +8113,10 @@ target_link_libraries(basic_work_queue_test
   gtest
   grpc_test_util_unsecure
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(basic_work_queue_test)
+endif()
 
 
 endif()
@@ -7962,6 +8204,10 @@ target_link_libraries(bin_decoder_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(bin_decoder_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -8003,6 +8249,10 @@ target_link_libraries(bin_encoder_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(bin_encoder_test)
+endif()
 
 
 endif()
@@ -8067,6 +8317,10 @@ target_link_libraries(binary_metadata_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(binary_metadata_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -8108,6 +8362,10 @@ target_link_libraries(binder_resolver_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(binder_resolver_test)
+endif()
 
 
 endif()
@@ -8169,6 +8427,10 @@ target_link_libraries(binder_server_test
   gtest
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(binder_server_test)
+endif()
 
 
 endif()
@@ -8280,6 +8542,10 @@ target_link_libraries(binder_transport_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(binder_transport_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -8311,6 +8577,10 @@ target_link_libraries(bitset_test
   ${_gRPC_ALLTARGETS_LIBRARIES}
   gtest
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(bitset_test)
+endif()
 
 
 endif()
@@ -8363,6 +8633,10 @@ target_link_libraries(buffer_list_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(buffer_list_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -8406,6 +8680,10 @@ target_link_libraries(byte_buffer_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(byte_buffer_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -8447,6 +8725,10 @@ target_link_libraries(c_slice_buffer_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(c_slice_buffer_test)
+endif()
 
 
 endif()
@@ -8510,6 +8792,10 @@ target_link_libraries(call_creds_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(call_creds_test)
+endif()
 
 
 endif()
@@ -8656,6 +8942,10 @@ target_link_libraries(call_finalization_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(call_finalization_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -8719,6 +9009,10 @@ target_link_libraries(call_host_override_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(call_host_override_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -8761,6 +9055,10 @@ target_link_libraries(call_tracer_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(call_tracer_test)
+endif()
 
 
 endif()
@@ -9124,6 +9422,10 @@ target_link_libraries(cancel_after_accept_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(cancel_after_accept_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -9186,6 +9488,10 @@ target_link_libraries(cancel_after_client_done_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(cancel_after_client_done_test)
+endif()
 
 
 endif()
@@ -9250,6 +9556,10 @@ target_link_libraries(cancel_after_invoke_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(cancel_after_invoke_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -9313,6 +9623,10 @@ target_link_libraries(cancel_after_round_trip_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(cancel_after_round_trip_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -9359,6 +9673,10 @@ target_link_libraries(cancel_ares_query_test
   grpc++_test_config
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(cancel_ares_query_test)
+endif()
 
 
 endif()
@@ -9422,6 +9740,10 @@ target_link_libraries(cancel_before_invoke_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(cancel_before_invoke_test)
+endif()
 
 
 endif()
@@ -9507,6 +9829,10 @@ target_link_libraries(cancel_callback_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(cancel_callback_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -9570,6 +9896,10 @@ target_link_libraries(cancel_in_a_vacuum_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(cancel_in_a_vacuum_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -9632,6 +9962,10 @@ target_link_libraries(cancel_with_status_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(cancel_with_status_test)
+endif()
 
 
 endif()
@@ -9773,6 +10107,10 @@ target_link_libraries(cel_authorization_engine_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(cel_authorization_engine_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -9815,6 +10153,10 @@ target_link_libraries(certificate_provider_registry_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(certificate_provider_registry_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -9856,6 +10198,10 @@ target_link_libraries(certificate_provider_store_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(certificate_provider_store_test)
+endif()
 
 
 endif()
@@ -10010,6 +10356,10 @@ target_link_libraries(cfstream_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(cfstream_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -10051,6 +10401,10 @@ target_link_libraries(channel_args_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(channel_args_test)
+endif()
 
 
 endif()
@@ -10095,6 +10449,10 @@ target_link_libraries(channel_arguments_test
   grpc++
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(channel_arguments_test)
+endif()
 
 
 endif()
@@ -10147,6 +10505,10 @@ target_link_libraries(channel_creds_registry_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(channel_creds_registry_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -10188,6 +10550,10 @@ target_link_libraries(channel_init_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(channel_init_test)
+endif()
 
 
 endif()
@@ -10231,6 +10597,10 @@ target_link_libraries(channel_stack_builder_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(channel_stack_builder_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -10272,6 +10642,10 @@ target_link_libraries(channel_stack_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(channel_stack_test)
+endif()
 
 
 endif()
@@ -10322,6 +10696,10 @@ target_link_libraries(channel_trace_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(channel_trace_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -10365,6 +10743,10 @@ target_link_libraries(channelz_registry_test
   grpc++
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(channelz_registry_test)
+endif()
 
 
 endif()
@@ -10428,6 +10810,10 @@ target_link_libraries(channelz_service_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(channelz_service_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -10479,6 +10865,10 @@ target_link_libraries(check_gcp_environment_linux_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(check_gcp_environment_linux_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -10529,6 +10919,10 @@ target_link_libraries(check_gcp_environment_windows_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(check_gcp_environment_windows_test)
+endif()
 
 
 endif()
@@ -10614,6 +11008,10 @@ target_link_libraries(chunked_vector_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(chunked_vector_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -10684,6 +11082,10 @@ target_link_libraries(cli_call_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(cli_call_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -10733,6 +11135,10 @@ target_link_libraries(client_auth_filter_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(client_auth_filter_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -10781,6 +11187,10 @@ target_link_libraries(client_authority_filter_test
   ${_gRPC_PROTOBUF_LIBRARIES}
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(client_authority_filter_test)
+endif()
 
 
 endif()
@@ -10898,6 +11308,10 @@ target_link_libraries(client_callback_end2end_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(client_callback_end2end_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -10939,6 +11353,10 @@ target_link_libraries(client_channel_service_config_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(client_channel_service_config_test)
+endif()
 
 
 endif()
@@ -10992,6 +11410,10 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
     grpc_test_util
   )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(client_channel_test)
+endif()
+
 
 endif()
 endif()
@@ -11035,6 +11457,10 @@ target_link_libraries(client_context_test_peer_test
   grpc++_test
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(client_context_test_peer_test)
+endif()
 
 
 endif()
@@ -11163,6 +11589,10 @@ target_link_libraries(client_interceptors_end2end_test
   gtest
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(client_interceptors_end2end_test)
+endif()
 
 
 endif()
@@ -11344,6 +11774,10 @@ target_link_libraries(client_streaming_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(client_streaming_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -11395,6 +11829,10 @@ target_link_libraries(cmdline_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(cmdline_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -11439,6 +11877,10 @@ target_link_libraries(codegen_test_full
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(codegen_test_full)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -11482,6 +11924,10 @@ target_link_libraries(codegen_test_minimal
   grpc++
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(codegen_test_minimal)
+endif()
 
 
 endif()
@@ -11578,6 +12024,10 @@ target_link_libraries(common_closures_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(common_closures_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -11619,6 +12069,10 @@ target_link_libraries(completion_queue_threading_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(completion_queue_threading_test)
+endif()
 
 
 endif()
@@ -11683,6 +12137,10 @@ target_link_libraries(compressed_payload_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(compressed_payload_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -11725,6 +12183,10 @@ target_link_libraries(compression_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(compression_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -11766,6 +12228,10 @@ target_link_libraries(concurrent_connectivity_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(concurrent_connectivity_test)
+endif()
 
 
 endif()
@@ -11864,6 +12330,10 @@ target_link_libraries(connection_prefix_bad_client_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(connection_prefix_bad_client_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -11906,6 +12376,10 @@ target_link_libraries(connection_refused_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(connection_refused_test)
+endif()
 
 
 endif()
@@ -11957,6 +12431,10 @@ target_link_libraries(connectivity_state_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(connectivity_state_test)
+endif()
 
 
 endif()
@@ -12021,6 +12499,10 @@ target_link_libraries(connectivity_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(connectivity_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -12081,6 +12563,10 @@ target_link_libraries(context_allocator_end2end_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(context_allocator_end2end_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -12124,6 +12610,10 @@ target_link_libraries(context_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(context_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -12166,6 +12656,10 @@ target_link_libraries(core_configuration_test
   grpc
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(core_configuration_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -12197,6 +12691,10 @@ target_link_libraries(cpp_impl_of_test
   ${_gRPC_ALLTARGETS_LIBRARIES}
   gtest
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(cpp_impl_of_test)
+endif()
 
 
 endif()
@@ -12239,6 +12737,10 @@ target_link_libraries(cpu_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(cpu_test)
+endif()
 
 
 endif()
@@ -12387,6 +12889,10 @@ target_link_libraries(default_engine_methods_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(default_engine_methods_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -12450,6 +12956,10 @@ target_link_libraries(default_host_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(default_host_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -12510,6 +13020,10 @@ target_link_libraries(delegating_channel_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(delegating_channel_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -12552,6 +13066,10 @@ target_link_libraries(destroy_grpclb_channel_with_active_connect_stress_test
   gtest
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(destroy_grpclb_channel_with_active_connect_stress_test)
+endif()
 
 
 endif()
@@ -12658,6 +13176,10 @@ target_link_libraries(disappearing_server_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(disappearing_server_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -12700,6 +13222,10 @@ target_link_libraries(dns_resolver_cooldown_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(dns_resolver_cooldown_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -12741,6 +13267,10 @@ target_link_libraries(dns_resolver_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(dns_resolver_test)
+endif()
 
 
 endif()
@@ -12825,6 +13355,10 @@ target_link_libraries(dual_ref_counted_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(dual_ref_counted_test)
+endif()
 
 
 endif()
@@ -12950,6 +13484,10 @@ target_link_libraries(duplicate_header_bad_client_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(duplicate_header_bad_client_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -13012,6 +13550,10 @@ target_link_libraries(empty_batch_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(empty_batch_test)
+endif()
 
 
 endif()
@@ -13141,6 +13683,10 @@ target_link_libraries(end2end_test
   grpc++_test
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(end2end_test)
+endif()
 
 
 endif()
@@ -13294,6 +13840,10 @@ target_link_libraries(endpoint_binder_pool_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(endpoint_binder_pool_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -13343,6 +13893,10 @@ target_link_libraries(endpoint_config_test
   absl::statusor
   gpr
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(endpoint_config_test)
+endif()
 
 
 endif()
@@ -13396,6 +13950,10 @@ target_link_libraries(endpoint_pair_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(endpoint_pair_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -13437,6 +13995,10 @@ target_link_libraries(env_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(env_test)
+endif()
 
 
 endif()
@@ -13494,6 +14056,10 @@ target_link_libraries(error_details_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(error_details_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -13546,6 +14112,10 @@ target_link_libraries(error_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(error_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -13596,6 +14166,10 @@ target_link_libraries(error_utils_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(error_utils_test)
+endif()
 
 
 endif()
@@ -13648,6 +14222,10 @@ target_link_libraries(evaluate_args_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(evaluate_args_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -13689,6 +14267,10 @@ target_link_libraries(event_engine_wakeup_scheduler_test
   gtest
   grpc
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(event_engine_wakeup_scheduler_test)
+endif()
 
 
 endif()
@@ -13838,6 +14420,10 @@ target_link_libraries(exception_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(exception_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -13915,6 +14501,10 @@ target_link_libraries(exec_ctx_wakeup_scheduler_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(exec_ctx_wakeup_scheduler_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -13960,6 +14550,10 @@ target_link_libraries(experiments_tag_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(experiments_tag_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -14004,6 +14598,10 @@ target_link_libraries(experiments_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(experiments_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -14045,6 +14643,10 @@ target_link_libraries(factory_test
   gtest
   grpc_test_util_unsecure
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(factory_test)
+endif()
 
 
 endif()
@@ -14156,6 +14758,10 @@ target_link_libraries(fake_binder_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(fake_binder_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -14197,6 +14803,10 @@ target_link_libraries(fake_resolver_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(fake_resolver_test)
+endif()
 
 
 endif()
@@ -14240,6 +14850,10 @@ target_link_libraries(fake_transport_security_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(fake_transport_security_test)
+endif()
 
 
 endif()
@@ -14336,6 +14950,10 @@ target_link_libraries(file_watcher_certificate_provider_factory_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(file_watcher_certificate_provider_factory_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -14398,6 +15016,10 @@ target_link_libraries(filter_causes_close_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(filter_causes_close_test)
+endif()
 
 
 endif()
@@ -14462,6 +15084,10 @@ target_link_libraries(filter_init_fails_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(filter_init_fails_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -14511,6 +15137,10 @@ target_link_libraries(filter_test_test
   ${_gRPC_PROTOBUF_LIBRARIES}
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(filter_test_test)
+endif()
 
 
 endif()
@@ -14575,6 +15205,10 @@ target_link_libraries(filtered_metadata_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(filtered_metadata_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -14634,6 +15268,10 @@ target_link_libraries(flaky_network_test
   gtest
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(flaky_network_test)
+endif()
 
 
 endif()
@@ -14724,6 +15362,10 @@ target_link_libraries(flow_control_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(flow_control_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -14807,6 +15449,10 @@ target_link_libraries(for_each_test
   absl::statusor
   gpr
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(for_each_test)
+endif()
 
 
 endif()
@@ -14899,6 +15545,10 @@ target_link_libraries(forkable_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(forkable_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -14954,6 +15604,10 @@ target_link_libraries(format_request_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(format_request_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -14996,6 +15650,10 @@ target_link_libraries(frame_handler_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(frame_handler_test)
+endif()
 
 
 endif()
@@ -15048,6 +15706,10 @@ target_link_libraries(frame_test
   absl::span
   gpr
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(frame_test)
+endif()
 
 
 endif()
@@ -15215,6 +15877,10 @@ target_link_libraries(generic_end2end_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(generic_end2end_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -15300,6 +15966,10 @@ target_link_libraries(goaway_server_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(goaway_server_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -15343,6 +16013,10 @@ target_link_libraries(google_c2p_resolver_test
   gtest
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(google_c2p_resolver_test)
+endif()
 
 
 endif()
@@ -15407,6 +16081,10 @@ target_link_libraries(graceful_server_shutdown_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(graceful_server_shutdown_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -15449,6 +16127,10 @@ target_link_libraries(graceful_shutdown_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(graceful_shutdown_test)
+endif()
 
 
 endif()
@@ -15501,6 +16183,10 @@ target_link_libraries(grpc_alts_credentials_options_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(grpc_alts_credentials_options_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -15542,6 +16228,10 @@ target_link_libraries(grpc_audit_logging_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(grpc_audit_logging_test)
+endif()
 
 
 endif()
@@ -15595,6 +16285,10 @@ target_link_libraries(grpc_authorization_engine_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(grpc_authorization_engine_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -15646,6 +16340,10 @@ target_link_libraries(grpc_authorization_policy_provider_test
   grpc_authorization_provider
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(grpc_authorization_policy_provider_test)
+endif()
 
 
 endif()
@@ -15710,6 +16408,10 @@ target_link_libraries(grpc_authz_end2end_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(grpc_authz_end2end_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -15773,6 +16475,10 @@ target_link_libraries(grpc_authz_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(grpc_authz_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -15814,6 +16520,10 @@ target_link_libraries(grpc_byte_buffer_reader_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(grpc_byte_buffer_reader_test)
+endif()
 
 
 endif()
@@ -15865,6 +16575,10 @@ target_link_libraries(grpc_cli
   grpc++_test_config
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(grpc_cli)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -15906,6 +16620,10 @@ target_link_libraries(grpc_completion_queue_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(grpc_completion_queue_test)
+endif()
 
 
 endif()
@@ -16033,6 +16751,10 @@ target_link_libraries(grpc_ipv6_loopback_available_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(grpc_ipv6_loopback_available_test)
+endif()
 
 
 endif()
@@ -16275,6 +16997,10 @@ target_link_libraries(grpc_tls_certificate_distributor_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(grpc_tls_certificate_distributor_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -16325,6 +17051,10 @@ target_link_libraries(grpc_tls_certificate_provider_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(grpc_tls_certificate_provider_test)
+endif()
 
 
 endif()
@@ -16377,6 +17107,10 @@ target_link_libraries(grpc_tls_certificate_verifier_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(grpc_tls_certificate_verifier_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -16428,6 +17162,10 @@ target_link_libraries(grpc_tls_credentials_options_comparator_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(grpc_tls_credentials_options_comparator_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -16478,6 +17216,10 @@ target_link_libraries(grpc_tls_credentials_options_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(grpc_tls_credentials_options_test)
+endif()
 
 
 endif()
@@ -16650,6 +17392,10 @@ target_link_libraries(grpclb_api_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(grpclb_api_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -16772,6 +17518,10 @@ target_link_libraries(h2_ssl_cert_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(h2_ssl_cert_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -16814,6 +17564,10 @@ target_link_libraries(h2_ssl_session_reuse_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(h2_ssl_session_reuse_test)
+endif()
 
 
 endif()
@@ -16858,6 +17612,10 @@ target_link_libraries(h2_tls_peer_property_external_verifier_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(h2_tls_peer_property_external_verifier_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -16899,6 +17657,10 @@ target_link_libraries(handle_tests
   gtest
   grpc
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(handle_tests)
+endif()
 
 
 endif()
@@ -16989,6 +17751,10 @@ target_link_libraries(head_of_line_blocking_bad_client_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(head_of_line_blocking_bad_client_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -17032,6 +17798,10 @@ target_link_libraries(headers_bad_client_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(headers_bad_client_test)
+endif()
 
 
 endif()
@@ -17102,6 +17872,10 @@ target_link_libraries(health_service_end2end_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(health_service_end2end_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -17165,6 +17939,10 @@ target_link_libraries(high_initial_seqno_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(high_initial_seqno_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -17216,6 +17994,10 @@ target_link_libraries(histogram_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(histogram_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -17257,6 +18039,10 @@ target_link_libraries(host_port_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(host_port_test)
+endif()
 
 
 endif()
@@ -17309,6 +18095,10 @@ target_link_libraries(hpack_encoder_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(hpack_encoder_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -17360,6 +18150,10 @@ target_link_libraries(hpack_parser_table_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(hpack_parser_table_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -17410,6 +18204,10 @@ target_link_libraries(hpack_parser_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(hpack_parser_test)
+endif()
 
 
 endif()
@@ -17474,6 +18272,10 @@ target_link_libraries(hpack_size_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(hpack_size_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -17524,6 +18326,10 @@ target_link_libraries(http2_client
   grpc++_test_config
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(http2_client)
+endif()
 
 
 endif()
@@ -17671,6 +18477,10 @@ target_link_libraries(http_proxy_mapper_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(http_proxy_mapper_test)
+endif()
 
 
 endif()
@@ -17830,6 +18640,10 @@ target_link_libraries(hybrid_end2end_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(hybrid_end2end_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -17863,6 +18677,10 @@ target_link_libraries(idle_filter_state_test
   gtest
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(idle_filter_state_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -17894,6 +18712,10 @@ target_link_libraries(if_list_test
   ${_gRPC_ALLTARGETS_LIBRARIES}
   gtest
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(if_list_test)
+endif()
 
 
 endif()
@@ -17938,6 +18760,10 @@ target_link_libraries(if_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(if_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -17979,6 +18805,10 @@ target_link_libraries(init_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(init_test)
+endif()
 
 
 endif()
@@ -18023,6 +18853,10 @@ target_link_libraries(initial_settings_frame_bad_client_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(initial_settings_frame_bad_client_test)
+endif()
 
 
 endif()
@@ -18133,6 +18967,10 @@ target_link_libraries(insecure_security_connector_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(insecure_security_connector_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -18224,6 +19062,10 @@ target_link_libraries(inter_activity_pipe_test
   absl::statusor
   gpr
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(inter_activity_pipe_test)
+endif()
 
 
 endif()
@@ -18608,6 +19450,10 @@ target_link_libraries(interceptor_list_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(interceptor_list_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -18663,6 +19509,10 @@ target_link_libraries(interop_client
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(interop_client)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -18717,6 +19567,10 @@ target_link_libraries(interop_server
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(interop_server)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -18759,6 +19613,10 @@ target_link_libraries(invalid_call_argument_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(invalid_call_argument_test)
+endif()
 
 
 endif()
@@ -18822,6 +19680,10 @@ target_link_libraries(invoke_large_request_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(invoke_large_request_test)
+endif()
 
 
 endif()
@@ -18918,6 +19780,10 @@ target_link_libraries(istio_echo_server_test
   grpc++_test_config
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(istio_echo_server_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -18965,6 +19831,10 @@ target_link_libraries(join_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(join_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -19007,6 +19877,10 @@ target_link_libraries(json_object_loader_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(json_object_loader_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -19048,6 +19922,10 @@ target_link_libraries(json_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(json_test)
+endif()
 
 
 endif()
@@ -19100,6 +19978,10 @@ target_link_libraries(json_token_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(json_token_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -19150,6 +20032,10 @@ target_link_libraries(jwt_verifier_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(jwt_verifier_test)
+endif()
 
 
 endif()
@@ -19214,6 +20100,10 @@ target_link_libraries(keepalive_timeout_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(keepalive_timeout_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -19256,6 +20146,10 @@ target_link_libraries(lame_client_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(lame_client_test)
+endif()
 
 
 endif()
@@ -19320,6 +20214,10 @@ target_link_libraries(large_metadata_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(large_metadata_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -19370,6 +20268,10 @@ target_link_libraries(latch_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(latch_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -19416,6 +20318,10 @@ target_link_libraries(lb_get_cpu_stats_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(lb_get_cpu_stats_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -19460,6 +20366,10 @@ target_link_libraries(lb_load_data_store_test
   grpc++
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(lb_load_data_store_test)
+endif()
 
 
 endif()
@@ -19556,6 +20466,10 @@ target_link_libraries(load_config_test
   grpc
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(load_config_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -19597,6 +20511,10 @@ target_link_libraries(load_file_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(load_file_test)
+endif()
 
 
 endif()
@@ -19734,6 +20652,10 @@ target_link_libraries(loop_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(loop_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -19818,6 +20740,10 @@ target_link_libraries(map_pipe_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(map_pipe_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -19849,6 +20775,10 @@ target_link_libraries(match_test
   ${_gRPC_ALLTARGETS_LIBRARIES}
   gtest
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(match_test)
+endif()
 
 
 endif()
@@ -19900,6 +20830,10 @@ target_link_libraries(matchers_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(matchers_test)
+endif()
 
 
 endif()
@@ -20006,6 +20940,10 @@ target_link_libraries(max_concurrent_streams_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(max_concurrent_streams_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -20068,6 +21006,10 @@ target_link_libraries(max_connection_age_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(max_connection_age_test)
+endif()
 
 
 endif()
@@ -20132,6 +21074,10 @@ target_link_libraries(max_connection_idle_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(max_connection_idle_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -20194,6 +21140,10 @@ target_link_libraries(max_message_length_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(max_message_length_test)
+endif()
 
 
 endif()
@@ -20281,6 +21231,10 @@ target_link_libraries(memory_quota_test
   grpc_test_util_unsecure
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(memory_quota_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -20341,6 +21295,10 @@ target_link_libraries(message_allocator_end2end_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(message_allocator_end2end_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -20392,6 +21350,10 @@ target_link_libraries(message_compress_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(message_compress_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -20433,6 +21395,10 @@ target_link_libraries(message_size_service_config_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(message_size_service_config_test)
+endif()
 
 
 endif()
@@ -20484,6 +21450,10 @@ target_link_libraries(metadata_map_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(metadata_map_test)
+endif()
 
 
 endif()
@@ -20570,6 +21540,10 @@ target_link_libraries(minimal_stack_is_minimal_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(minimal_stack_is_minimal_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -20601,6 +21575,10 @@ target_link_libraries(miscompile_with_no_unique_address_test
   ${_gRPC_ALLTARGETS_LIBRARIES}
   gtest
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(miscompile_with_no_unique_address_test)
+endif()
 
 
 endif()
@@ -20660,6 +21638,10 @@ target_link_libraries(mock_stream_test
   grpc++_test
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(mock_stream_test)
+endif()
 
 
 endif()
@@ -20724,6 +21706,10 @@ target_link_libraries(mock_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(mock_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -20769,6 +21755,10 @@ target_link_libraries(mpsc_test
   absl::statusor
   gpr
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(mpsc_test)
+endif()
 
 
 endif()
@@ -20877,6 +21867,10 @@ target_link_libraries(negative_deadline_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(negative_deadline_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -20908,6 +21902,10 @@ target_link_libraries(no_destruct_test
   ${_gRPC_ALLTARGETS_LIBRARIES}
   gtest
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(no_destruct_test)
+endif()
 
 
 endif()
@@ -20964,13 +21962,26 @@ target_include_directories(no_logging_test
     ${_gRPC_PROTO_GENS_DIR}
 )
 
-target_link_libraries(no_logging_test
-  ${_gRPC_ALLTARGETS_LIBRARIES}
-  gtest
-  grpc_authorization_provider
-  grpc_unsecure
-  grpc_test_util
-)
+if (_gRPC_PLATFORM_QNX)
+  target_link_libraries(no_logging_test
+    ${_gRPC_ALLTARGETS_LIBRARIES}
+    gtest
+    grpc_test_util
+  )
+  
+  if(gRPC_INSTALL)
+    QNX_INSTALL_TEST(no_logging_test)
+  endif()
+
+else()
+  target_link_libraries(no_logging_test
+    ${_gRPC_ALLTARGETS_LIBRARIES}
+    gtest
+    grpc_authorization_provider
+    grpc_unsecure
+    grpc_test_util
+  )
+endif()
 
 
 endif()
@@ -21035,6 +22046,10 @@ target_link_libraries(no_op_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(no_op_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -21077,6 +22092,10 @@ target_link_libraries(no_server_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(no_server_test)
+endif()
 
 
 endif()
@@ -21137,6 +22156,10 @@ target_link_libraries(nonblocking_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(nonblocking_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -21177,6 +22200,10 @@ target_link_libraries(notification_test
   gtest
   gpr
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(notification_test)
+endif()
 
 
 endif()
@@ -21219,6 +22246,10 @@ target_link_libraries(num_external_connectivity_watchers_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(num_external_connectivity_watchers_test)
+endif()
 
 
 endif()
@@ -21367,6 +22398,10 @@ target_link_libraries(orca_service_end2end_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(orca_service_end2end_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -21409,6 +22444,10 @@ target_link_libraries(orphanable_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(orphanable_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -21441,6 +22480,10 @@ target_link_libraries(osa_distance_test
   ${_gRPC_ALLTARGETS_LIBRARIES}
   gtest
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(osa_distance_test)
+endif()
 
 
 endif()
@@ -21553,6 +22596,10 @@ target_link_libraries(out_of_bounds_bad_client_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(out_of_bounds_bad_client_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -21594,6 +22641,10 @@ target_link_libraries(outlier_detection_lb_config_parser_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(outlier_detection_lb_config_parser_test)
+endif()
 
 
 endif()
@@ -21644,6 +22695,10 @@ target_link_libraries(outlier_detection_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(outlier_detection_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -21675,6 +22730,10 @@ target_link_libraries(overload_test
   ${_gRPC_ALLTARGETS_LIBRARIES}
   gtest
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(overload_test)
+endif()
 
 
 endif()
@@ -21717,6 +22776,10 @@ target_link_libraries(parse_address_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(parse_address_test)
+endif()
 
 
 endif()
@@ -21804,6 +22867,10 @@ target_link_libraries(parsed_metadata_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(parsed_metadata_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -21859,6 +22926,10 @@ target_link_libraries(parser_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(parser_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -21900,6 +22971,10 @@ target_link_libraries(party_test
   gtest
   grpc_unsecure
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(party_test)
+endif()
 
 
 endif()
@@ -21964,6 +23039,10 @@ target_link_libraries(payload_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(payload_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -22005,6 +23084,10 @@ target_link_libraries(percent_encoding_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(percent_encoding_test)
+endif()
 
 
 endif()
@@ -22082,6 +23165,10 @@ target_link_libraries(periodic_update_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(periodic_update_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -22131,6 +23218,10 @@ target_link_libraries(pick_first_test
   ${_gRPC_PROTOBUF_LIBRARIES}
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(pick_first_test)
+endif()
 
 
 endif()
@@ -22182,6 +23273,10 @@ target_link_libraries(ping_abuse_policy_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(ping_abuse_policy_test)
+endif()
 
 
 endif()
@@ -22276,6 +23371,10 @@ target_link_libraries(ping_configuration_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(ping_configuration_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -22339,6 +23438,10 @@ target_link_libraries(ping_pong_streaming_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(ping_pong_streaming_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -22389,6 +23492,10 @@ target_link_libraries(ping_rate_policy_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(ping_rate_policy_test)
+endif()
 
 
 endif()
@@ -22453,6 +23560,10 @@ target_link_libraries(ping_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(ping_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -22495,6 +23606,10 @@ target_link_libraries(pipe_test
   grpc
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(pipe_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -22535,6 +23650,10 @@ target_link_libraries(poll_test
   gtest
   gpr
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(poll_test)
+endif()
 
 
 endif()
@@ -22595,6 +23714,10 @@ target_link_libraries(port_sharing_end2end_test
   gtest
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(port_sharing_end2end_test)
+endif()
 
 
 endif()
@@ -22929,6 +24052,10 @@ target_link_libraries(pre_stop_hook_server_test
   grpc++_test_config
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(pre_stop_hook_server_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -22969,6 +24096,10 @@ target_link_libraries(prioritized_race_test
   gtest
   gpr
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(prioritized_race_test)
+endif()
 
 
 endif()
@@ -23013,6 +24144,10 @@ target_link_libraries(promise_endpoint_test
   grpc
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(promise_endpoint_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -23056,6 +24191,10 @@ target_link_libraries(promise_factory_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(promise_factory_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -23097,6 +24236,10 @@ target_link_libraries(promise_map_test
   absl::type_traits
   gpr
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(promise_map_test)
+endif()
 
 
 endif()
@@ -23190,6 +24333,10 @@ target_link_libraries(promise_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(promise_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -23233,6 +24380,10 @@ target_link_libraries(proto_buffer_reader_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(proto_buffer_reader_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -23275,6 +24426,10 @@ target_link_libraries(proto_buffer_writer_test
   gtest
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(proto_buffer_writer_test)
+endif()
 
 
 endif()
@@ -23342,6 +24497,10 @@ target_link_libraries(proto_server_reflection_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(proto_server_reflection_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -23385,6 +24544,10 @@ target_link_libraries(proto_utils_test
   grpc++
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(proto_utils_test)
+endif()
 
 
 endif()
@@ -23448,6 +24611,10 @@ target_link_libraries(proxy_auth_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(proxy_auth_test)
+endif()
 
 
 endif()
@@ -23529,6 +24696,10 @@ target_link_libraries(qps_json_driver
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(qps_json_driver)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -23600,6 +24771,10 @@ target_link_libraries(qps_worker
   grpc++_test_config
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(qps_worker)
+endif()
 
 
 endif()
@@ -23684,6 +24859,10 @@ target_link_libraries(race_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(race_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -23719,6 +24898,10 @@ target_link_libraries(random_early_detection_test
   absl::random_distributions
   absl::random_random
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(random_early_detection_test)
+endif()
 
 
 endif()
@@ -23784,6 +24967,10 @@ target_link_libraries(raw_end2end_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(raw_end2end_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -23825,6 +25012,10 @@ target_link_libraries(rbac_service_config_parser_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(rbac_service_config_parser_test)
+endif()
 
 
 endif()
@@ -23878,6 +25069,10 @@ target_link_libraries(rbac_translator_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(rbac_translator_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -23920,6 +25115,10 @@ target_link_libraries(ref_counted_ptr_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(ref_counted_ptr_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -23961,6 +25160,10 @@ target_link_libraries(ref_counted_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(ref_counted_test)
+endif()
 
 
 endif()
@@ -24024,6 +25227,10 @@ target_link_libraries(registered_call_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(registered_call_test)
+endif()
 
 
 endif()
@@ -24132,6 +25339,10 @@ target_link_libraries(request_with_flags_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(request_with_flags_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -24194,6 +25405,10 @@ target_link_libraries(request_with_payload_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(request_with_payload_test)
+endif()
 
 
 endif()
@@ -24301,6 +25516,10 @@ target_link_libraries(resolve_address_using_ares_resolver_test
   grpc++_test_config
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(resolve_address_using_ares_resolver_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -24407,6 +25626,10 @@ target_link_libraries(resolve_address_using_native_resolver_test
   grpc++_test_config
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(resolve_address_using_native_resolver_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -24465,6 +25688,10 @@ target_link_libraries(resource_quota_end2end_stress_test
   gtest
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(resource_quota_end2end_stress_test)
+endif()
 
 
 endif()
@@ -24529,6 +25756,10 @@ target_link_libraries(resource_quota_server_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(resource_quota_server_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -24570,6 +25801,10 @@ target_link_libraries(resource_quota_test
   gtest
   grpc_test_util_unsecure
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(resource_quota_test)
+endif()
 
 
 endif()
@@ -24634,6 +25869,10 @@ target_link_libraries(retry_cancel_after_first_attempt_starts_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_cancel_after_first_attempt_starts_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -24696,6 +25935,10 @@ target_link_libraries(retry_cancel_during_delay_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_cancel_during_delay_test)
+endif()
 
 
 endif()
@@ -24760,6 +26003,10 @@ target_link_libraries(retry_cancel_with_multiple_send_batches_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_cancel_with_multiple_send_batches_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -24822,6 +26069,10 @@ target_link_libraries(retry_cancellation_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_cancellation_test)
+endif()
 
 
 endif()
@@ -24886,6 +26137,10 @@ target_link_libraries(retry_disabled_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_disabled_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -24948,6 +26203,10 @@ target_link_libraries(retry_exceeds_buffer_size_in_delay_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_exceeds_buffer_size_in_delay_test)
+endif()
 
 
 endif()
@@ -25012,6 +26271,10 @@ target_link_libraries(retry_exceeds_buffer_size_in_initial_batch_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_exceeds_buffer_size_in_initial_batch_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -25074,6 +26337,10 @@ target_link_libraries(retry_exceeds_buffer_size_in_subsequent_batch_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_exceeds_buffer_size_in_subsequent_batch_test)
+endif()
 
 
 endif()
@@ -25138,6 +26405,10 @@ target_link_libraries(retry_lb_drop_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_lb_drop_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -25200,6 +26471,10 @@ target_link_libraries(retry_lb_fail_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_lb_fail_test)
+endif()
 
 
 endif()
@@ -25264,6 +26539,10 @@ target_link_libraries(retry_non_retriable_status_before_trailers_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_non_retriable_status_before_trailers_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -25326,6 +26605,10 @@ target_link_libraries(retry_non_retriable_status_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_non_retriable_status_test)
+endif()
 
 
 endif()
@@ -25390,6 +26673,10 @@ target_link_libraries(retry_per_attempt_recv_timeout_on_last_attempt_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_per_attempt_recv_timeout_on_last_attempt_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -25452,6 +26739,10 @@ target_link_libraries(retry_per_attempt_recv_timeout_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_per_attempt_recv_timeout_test)
+endif()
 
 
 endif()
@@ -25516,6 +26807,10 @@ target_link_libraries(retry_recv_initial_metadata_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_recv_initial_metadata_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -25578,6 +26873,10 @@ target_link_libraries(retry_recv_message_replay_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_recv_message_replay_test)
+endif()
 
 
 endif()
@@ -25642,6 +26941,10 @@ target_link_libraries(retry_recv_message_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_recv_message_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -25704,6 +27007,10 @@ target_link_libraries(retry_recv_trailing_metadata_error_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_recv_trailing_metadata_error_test)
+endif()
 
 
 endif()
@@ -25768,6 +27075,10 @@ target_link_libraries(retry_send_initial_metadata_refs_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_send_initial_metadata_refs_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -25830,6 +27141,10 @@ target_link_libraries(retry_send_op_fails_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_send_op_fails_test)
+endif()
 
 
 endif()
@@ -25894,6 +27209,10 @@ target_link_libraries(retry_send_recv_batch_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_send_recv_batch_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -25956,6 +27275,10 @@ target_link_libraries(retry_server_pushback_delay_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_server_pushback_delay_test)
+endif()
 
 
 endif()
@@ -26020,6 +27343,10 @@ target_link_libraries(retry_server_pushback_disabled_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_server_pushback_disabled_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -26061,6 +27388,10 @@ target_link_libraries(retry_service_config_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_service_config_test)
+endif()
 
 
 endif()
@@ -26125,6 +27456,10 @@ target_link_libraries(retry_streaming_after_commit_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_streaming_after_commit_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -26187,6 +27522,10 @@ target_link_libraries(retry_streaming_succeeds_before_replay_finished_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_streaming_succeeds_before_replay_finished_test)
+endif()
 
 
 endif()
@@ -26251,6 +27590,10 @@ target_link_libraries(retry_streaming_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_streaming_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -26314,6 +27657,10 @@ target_link_libraries(retry_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -26355,6 +27702,10 @@ target_link_libraries(retry_throttle_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_throttle_test)
+endif()
 
 
 endif()
@@ -26419,6 +27770,10 @@ target_link_libraries(retry_throttled_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_throttled_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -26481,6 +27836,10 @@ target_link_libraries(retry_too_many_attempts_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_too_many_attempts_test)
+endif()
 
 
 endif()
@@ -26545,6 +27904,10 @@ target_link_libraries(retry_transparent_goaway_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_transparent_goaway_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -26607,6 +27970,10 @@ target_link_libraries(retry_transparent_max_concurrent_streams_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_transparent_max_concurrent_streams_test)
+endif()
 
 
 endif()
@@ -26671,6 +28038,10 @@ target_link_libraries(retry_transparent_not_sent_on_wire_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_transparent_not_sent_on_wire_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -26734,6 +28105,10 @@ target_link_libraries(retry_unref_before_finish_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_unref_before_finish_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -26796,6 +28171,10 @@ target_link_libraries(retry_unref_before_recv_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(retry_unref_before_recv_test)
+endif()
 
 
 endif()
@@ -26919,6 +28298,10 @@ target_link_libraries(rls_end2end_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(rls_end2end_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -26960,6 +28343,10 @@ target_link_libraries(rls_lb_config_parser_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(rls_lb_config_parser_test)
+endif()
 
 
 endif()
@@ -27010,6 +28397,10 @@ target_link_libraries(round_robin_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(round_robin_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -27053,6 +28444,10 @@ target_link_libraries(secure_auth_context_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(secure_auth_context_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -27094,6 +28489,10 @@ target_link_libraries(secure_channel_create_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(secure_channel_create_test)
+endif()
 
 
 endif()
@@ -27147,6 +28546,10 @@ target_link_libraries(secure_endpoint_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(secure_endpoint_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -27198,6 +28601,10 @@ target_link_libraries(security_connector_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(security_connector_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -27245,6 +28652,10 @@ target_link_libraries(seq_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(seq_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -27286,6 +28697,10 @@ target_link_libraries(sequential_connectivity_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(sequential_connectivity_test)
+endif()
 
 
 endif()
@@ -27350,6 +28765,10 @@ target_link_libraries(server_builder_plugin_test
   gtest
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(server_builder_plugin_test)
+endif()
 
 
 endif()
@@ -27591,6 +29010,10 @@ target_link_libraries(server_call_tracer_factory_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(server_call_tracer_factory_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -27632,6 +29055,10 @@ target_link_libraries(server_chttp2_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(server_chttp2_test)
+endif()
 
 
 endif()
@@ -27675,6 +29102,10 @@ target_link_libraries(server_config_selector_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(server_config_selector_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -27717,6 +29148,10 @@ target_link_libraries(server_context_test_spouse_test
   grpc++_test
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(server_context_test_spouse_test)
+endif()
 
 
 endif()
@@ -27776,6 +29211,10 @@ target_link_libraries(server_early_return_test
   gtest
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(server_early_return_test)
+endif()
 
 
 endif()
@@ -27840,6 +29279,10 @@ target_link_libraries(server_finishes_request_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(server_finishes_request_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -27901,6 +29344,10 @@ target_link_libraries(server_interceptors_end2end_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(server_interceptors_end2end_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -27944,6 +29391,10 @@ target_link_libraries(server_registered_method_bad_client_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(server_registered_method_bad_client_test)
+endif()
 
 
 endif()
@@ -28124,6 +29575,10 @@ target_link_libraries(server_streaming_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(server_streaming_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -28165,6 +29620,10 @@ target_link_libraries(server_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(server_test)
+endif()
 
 
 endif()
@@ -28230,6 +29689,10 @@ target_link_libraries(service_config_end2end_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(service_config_end2end_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -28271,6 +29734,10 @@ target_link_libraries(service_config_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(service_config_test)
+endif()
 
 
 endif()
@@ -28322,6 +29789,10 @@ target_link_libraries(settings_timeout_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(settings_timeout_test)
+endif()
 
 
 endif()
@@ -28386,6 +29857,10 @@ target_link_libraries(shutdown_finishes_calls_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(shutdown_finishes_calls_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -28448,6 +29923,10 @@ target_link_libraries(shutdown_finishes_tags_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(shutdown_finishes_tags_test)
+endif()
 
 
 endif()
@@ -28512,6 +29991,10 @@ target_link_libraries(shutdown_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(shutdown_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -28574,6 +30057,10 @@ target_link_libraries(simple_delayed_request_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(simple_delayed_request_test)
+endif()
 
 
 endif()
@@ -28638,6 +30125,10 @@ target_link_libraries(simple_metadata_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(simple_metadata_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -28681,6 +30172,10 @@ target_link_libraries(simple_request_bad_client_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(simple_request_bad_client_test)
+endif()
 
 
 endif()
@@ -28745,6 +30240,10 @@ target_link_libraries(simple_request_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(simple_request_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -28785,6 +30284,10 @@ target_link_libraries(single_set_ptr_test
   gtest
   gpr
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(single_set_ptr_test)
+endif()
 
 
 endif()
@@ -28827,6 +30330,10 @@ target_link_libraries(sleep_test
   gtest
   grpc
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(sleep_test)
+endif()
 
 
 endif()
@@ -28877,6 +30384,10 @@ target_link_libraries(slice_string_helpers_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(slice_string_helpers_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -28918,6 +30429,10 @@ target_link_libraries(smoke_test
   gtest
   grpc_test_util_unsecure
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(smoke_test)
+endif()
 
 
 endif()
@@ -28961,6 +30476,10 @@ target_link_libraries(sockaddr_resolver_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(sockaddr_resolver_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -29002,6 +30521,10 @@ target_link_libraries(sockaddr_utils_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(sockaddr_utils_test)
+endif()
 
 
 endif()
@@ -29088,6 +30611,10 @@ target_link_libraries(sorted_pack_test
   gtest
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(sorted_pack_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -29129,6 +30656,10 @@ target_link_libraries(spinlock_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(spinlock_test)
+endif()
 
 
 endif()
@@ -29306,6 +30837,10 @@ target_link_libraries(stat_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(stat_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -29349,6 +30884,10 @@ target_link_libraries(static_stride_scheduler_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(static_stride_scheduler_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -29390,6 +30929,10 @@ target_link_libraries(stats_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(stats_test)
+endif()
 
 
 endif()
@@ -29441,6 +30984,10 @@ target_link_libraries(status_conversion_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(status_conversion_test)
+endif()
 
 
 endif()
@@ -29526,6 +31073,10 @@ target_link_libraries(status_helper_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(status_helper_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -29568,6 +31119,10 @@ target_link_libraries(status_util_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(status_util_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -29609,6 +31164,10 @@ target_link_libraries(stream_leak_with_queued_flow_control_update_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(stream_leak_with_queued_flow_control_update_test)
+endif()
 
 
 endif()
@@ -29672,6 +31231,10 @@ target_link_libraries(streaming_error_response_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(streaming_error_response_test)
+endif()
 
 
 endif()
@@ -29790,6 +31353,10 @@ target_link_libraries(streams_not_seen_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(streams_not_seen_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -29834,6 +31401,10 @@ target_link_libraries(string_ref_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(string_ref_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -29875,6 +31446,10 @@ target_link_libraries(string_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(string_test)
+endif()
 
 
 endif()
@@ -30003,6 +31578,10 @@ target_link_libraries(sync_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(sync_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -30054,6 +31633,10 @@ target_link_libraries(system_roots_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(system_roots_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -30087,6 +31670,10 @@ target_link_libraries(table_test
   absl::type_traits
   absl::utility
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(table_test)
+endif()
 
 
 endif()
@@ -30334,6 +31921,10 @@ target_link_libraries(tcp_socket_utils_test
   grpc
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(tcp_socket_utils_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -30383,6 +31974,10 @@ target_link_libraries(test_core_channelz_channelz_test
   grpc++
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_core_channelz_channelz_test)
+endif()
 
 
 endif()
@@ -30447,6 +32042,10 @@ target_link_libraries(test_core_end2end_channelz_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_core_end2end_channelz_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -30493,6 +32092,10 @@ target_link_libraries(test_core_event_engine_posix_timer_heap_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_core_event_engine_posix_timer_heap_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -30538,6 +32141,10 @@ target_link_libraries(test_core_event_engine_posix_timer_list_test
   absl::statusor
   gpr
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_core_event_engine_posix_timer_list_test)
+endif()
 
 
 endif()
@@ -30594,6 +32201,10 @@ target_link_libraries(test_core_event_engine_slice_buffer_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_core_event_engine_slice_buffer_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -30636,6 +32247,10 @@ target_link_libraries(test_core_gprpp_time_test
   absl::statusor
   gpr
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_core_gprpp_time_test)
+endif()
 
 
 endif()
@@ -30688,6 +32303,10 @@ target_link_libraries(test_core_iomgr_timer_heap_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_core_iomgr_timer_heap_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -30738,6 +32357,10 @@ target_link_libraries(test_core_security_credentials_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_core_security_credentials_test)
+endif()
 
 
 endif()
@@ -30790,6 +32413,10 @@ target_link_libraries(test_core_security_ssl_credentials_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_core_security_ssl_credentials_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -30831,6 +32458,10 @@ target_link_libraries(test_core_slice_slice_buffer_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_core_slice_slice_buffer_test)
+endif()
 
 
 endif()
@@ -30874,6 +32505,10 @@ target_link_libraries(test_core_slice_slice_test
   gtest
   grpc
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_core_slice_slice_test)
+endif()
 
 
 endif()
@@ -30937,6 +32572,10 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
     grpc_test_util
   )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_core_transport_chaotic_good_frame_test)
+endif()
+
 
 endif()
 endif()
@@ -30979,6 +32618,10 @@ target_link_libraries(test_core_util_time_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_core_util_time_test)
+endif()
 
 
 endif()
@@ -31024,6 +32667,10 @@ target_link_libraries(test_cpp_client_credentials_test
   grpc++
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_cpp_client_credentials_test)
+endif()
 
 
 endif()
@@ -31084,6 +32731,10 @@ target_link_libraries(test_cpp_end2end_ssl_credentials_test
   gtest
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_cpp_end2end_ssl_credentials_test)
+endif()
 
 
 endif()
@@ -31183,6 +32834,10 @@ target_link_libraries(test_cpp_server_credentials_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_cpp_server_credentials_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -31225,6 +32880,10 @@ target_link_libraries(test_cpp_util_slice_test
   gtest
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_cpp_util_slice_test)
+endif()
 
 
 endif()
@@ -31269,6 +32928,10 @@ target_link_libraries(test_cpp_util_time_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(test_cpp_util_time_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -31310,6 +32973,10 @@ target_link_libraries(thd_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(thd_test)
+endif()
 
 
 endif()
@@ -31355,6 +33022,10 @@ target_link_libraries(thread_manager_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(thread_manager_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -31397,6 +33068,10 @@ target_link_libraries(thread_pool_test
   grpc
   grpc_test_util_unsecure
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(thread_pool_test)
+endif()
 
 
 endif()
@@ -31441,6 +33116,10 @@ target_link_libraries(thread_quota_test
   absl::hash
   gpr
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(thread_quota_test)
+endif()
 
 
 endif()
@@ -31645,6 +33324,10 @@ target_link_libraries(time_util_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(time_util_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -31759,6 +33442,10 @@ target_link_libraries(timeout_encoding_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(timeout_encoding_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -31800,6 +33487,10 @@ target_link_libraries(timer_manager_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(timer_manager_test)
+endif()
 
 
 endif()
@@ -31845,6 +33536,10 @@ target_link_libraries(timer_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(timer_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -31889,6 +33584,10 @@ target_link_libraries(tls_certificate_verifier_test
   grpc++
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(tls_certificate_verifier_test)
+endif()
 
 
 endif()
@@ -32009,6 +33708,10 @@ target_link_libraries(tls_key_export_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(tls_key_export_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -32060,6 +33763,10 @@ target_link_libraries(tls_security_connector_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(tls_security_connector_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -32104,6 +33811,10 @@ target_link_libraries(too_many_pings_test
   grpc++_test_config
   grpc++_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(too_many_pings_test)
+endif()
 
 
 endif()
@@ -32254,6 +33965,10 @@ target_link_libraries(trailing_metadata_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(trailing_metadata_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -32296,6 +34011,10 @@ target_link_libraries(transport_security_common_api_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(transport_security_common_api_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -32337,6 +34056,10 @@ target_link_libraries(transport_security_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(transport_security_test)
+endif()
 
 
 endif()
@@ -32447,6 +34170,10 @@ target_link_libraries(transport_stream_receiver_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(transport_stream_receiver_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -32495,6 +34222,10 @@ target_link_libraries(try_join_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(try_join_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -32536,6 +34267,10 @@ target_link_libraries(try_seq_metadata_test
   gtest
   grpc
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(try_seq_metadata_test)
+endif()
 
 
 endif()
@@ -32584,6 +34319,10 @@ target_link_libraries(try_seq_test
   gpr
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(try_seq_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -32616,6 +34355,10 @@ target_link_libraries(unique_type_name_test
   gtest
   absl::str_format
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(unique_type_name_test)
+endif()
 
 
 endif()
@@ -32661,6 +34404,10 @@ target_link_libraries(unknown_frame_bad_client_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(unknown_frame_bad_client_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -32703,6 +34450,10 @@ target_link_libraries(uri_parser_test
   grpc_test_util_unsecure
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(uri_parser_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -32734,6 +34485,10 @@ target_link_libraries(useful_test
   ${_gRPC_ALLTARGETS_LIBRARIES}
   gtest
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(useful_test)
+endif()
 
 
 endif()
@@ -32777,6 +34532,10 @@ target_link_libraries(uuid_v4_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(uuid_v4_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -32819,6 +34578,10 @@ target_link_libraries(validation_errors_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(validation_errors_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -32860,6 +34623,10 @@ target_link_libraries(varint_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(varint_test)
+endif()
 
 
 endif()
@@ -32906,6 +34673,10 @@ target_link_libraries(wait_for_callback_test
   absl::statusor
   gpr
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(wait_for_callback_test)
+endif()
 
 
 endif()
@@ -32994,6 +34765,10 @@ target_link_libraries(weighted_round_robin_config_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(weighted_round_robin_config_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -33043,6 +34818,10 @@ target_link_libraries(weighted_round_robin_test
   ${_gRPC_PROTOBUF_LIBRARIES}
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(weighted_round_robin_test)
+endif()
 
 
 endif()
@@ -33132,6 +34911,10 @@ target_link_libraries(window_overflow_bad_client_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(window_overflow_bad_client_test)
+endif()
 
 
 endif()
@@ -33288,6 +35071,10 @@ target_link_libraries(wire_reader_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(wire_reader_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -33398,6 +35185,10 @@ target_link_libraries(wire_writer_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(wire_writer_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -33506,6 +35297,10 @@ target_link_libraries(write_buffering_at_end_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(write_buffering_at_end_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -33568,6 +35363,10 @@ target_link_libraries(write_buffering_test
   grpc_unsecure
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(write_buffering_test)
+endif()
 
 
 endif()
@@ -33800,6 +35599,10 @@ target_link_libraries(xds_audit_logger_registry_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(xds_audit_logger_registry_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -33842,6 +35645,10 @@ target_link_libraries(xds_bootstrap_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(xds_bootstrap_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -33883,6 +35690,10 @@ target_link_libraries(xds_certificate_provider_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(xds_certificate_provider_test)
+endif()
 
 
 endif()
@@ -33942,6 +35753,10 @@ target_link_libraries(xds_client_test
   ${_gRPC_PROTOBUF_LIBRARIES}
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(xds_client_test)
+endif()
 
 
 endif()
@@ -34237,6 +36052,10 @@ target_link_libraries(xds_cluster_resource_type_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(xds_cluster_resource_type_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -34502,6 +36321,10 @@ target_link_libraries(xds_common_types_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(xds_common_types_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -34737,6 +36560,10 @@ target_link_libraries(xds_credentials_end2end_test
   grpc++_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(xds_credentials_end2end_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -34787,6 +36614,10 @@ target_link_libraries(xds_credentials_test
   gtest
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(xds_credentials_test)
+endif()
 
 
 endif()
@@ -35232,6 +37063,10 @@ target_link_libraries(xds_endpoint_resource_type_test
   ${_gRPC_PROTOBUF_LIBRARIES}
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(xds_endpoint_resource_type_test)
+endif()
 
 
 endif()
@@ -35723,6 +37558,10 @@ target_link_libraries(xds_http_filters_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(xds_http_filters_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -35840,6 +37679,10 @@ target_link_libraries(xds_lb_policy_registry_test
   ${_gRPC_PROTOBUF_PROTOC_LIBRARIES}
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(xds_lb_policy_registry_test)
+endif()
 
 
 endif()
@@ -35982,6 +37825,10 @@ target_link_libraries(xds_listener_resource_type_test
   ${_gRPC_PROTOBUF_PROTOC_LIBRARIES}
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(xds_listener_resource_type_test)
+endif()
 
 
 endif()
@@ -36393,6 +38240,10 @@ target_link_libraries(xds_override_host_lb_config_parser_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(xds_override_host_lb_config_parser_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -36441,6 +38292,10 @@ target_link_libraries(xds_override_host_test
   ${_gRPC_PROTOBUF_LIBRARIES}
   grpc_test_util
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(xds_override_host_test)
+endif()
 
 
 endif()
@@ -37109,6 +38964,10 @@ target_link_libraries(xds_route_config_resource_type_test
   grpc_test_util
 )
 
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(xds_route_config_resource_type_test)
+endif()
+
 
 endif()
 if(gRPC_BUILD_TESTS)
@@ -37368,6 +39227,10 @@ target_link_libraries(xds_stats_watcher_test
   grpc_test_util
   grpc++_test_config
 )
+
+if(_gRPC_PLATFORM_QNX AND gRPC_INSTALL)
+  QNX_INSTALL_TEST(xds_stats_watcher_test)
+endif()
 
 
 endif()
