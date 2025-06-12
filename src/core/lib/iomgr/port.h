@@ -226,11 +226,14 @@
 #ifdef QNX_HAVE_VSOCK
 #define GRPC_HAVE_VSOCK
 #endif
-#if __QNX__ < 800
+#if (__QNX__ < 800) && !defined(QNX_IOSOCK)
 #define GRPC_HAVE_IP_PKTINFO 1
 #endif
 #define GRPC_HAVE_MSG_NOSIGNAL 1
 #define GRPC_POSIX_SYSCONF 1
+#if (__QNX__ >= 800) || defined(QNX_IOSOCK)
+#define GRPC_HAVE_SO_NOSIGPIPE 1
+#endif
 #elif !defined(GPR_NO_AUTODETECT_PLATFORM)
 #error "Platform not recognized"
 #endif
