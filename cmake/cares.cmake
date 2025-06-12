@@ -12,17 +12,31 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 if(QNX)
+  # From the SDP
   find_library(CARES_LIBRARY
   NAMES
     cares
   HINTS
-    "${CMAKE_INSTALL_PREFIX}/../lib/"
-    "${CMAKE_INSTALL_PREFIX}/lib/"
+    "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}"
+    "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/../lib"
+    "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/../../lib"
+    "../lib/"
+    "lib/"
+  REQUIRED
+  )
+  find_library(SOCKET_LIBRARY
+  NAMES
+    socket
+  HINTS
+    "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}"
+    "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/../lib"
+    "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/../../lib"
+    "../lib/"
+    "lib/"
   REQUIRED
   )
 
-  set(_gRPC_CARES_LIBRARIES ${CARES_LIBRARY} socket)
-  set(_gRPC_CARES_INCLUDE_DIR "${CMAKE_INSTALL_PREFIX}/../../usr/include")
+  set(_gRPC_CARES_LIBRARIES ${CARES_LIBRARY} ${SOCKET_LIBRARY})
 elseif(gRPC_CARES_PROVIDER STREQUAL "module")
   if(NOT CARES_ROOT_DIR)
     set(CARES_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/cares/cares)
