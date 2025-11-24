@@ -247,6 +247,17 @@ int Accept4(int sockfd,
       if (fcntl(fd, F_SETFD, flags | FD_CLOEXEC) != 0) goto close_and_error;
     }
   }
+
+#ifdef QNX_HAVE_VSOCK
+  // For QNX-VSOCK sockets, sockaddr and socklen doesn't get filled during
+  // accept(), so call getpeername() explicitly
+  len = EventEngine::ResolvedAddress::MAX_SIZE_BYTES;
+  if (getpeername(sockfd, const_cast<sockaddr*>(peer_addr.address()), &len) < 0) {
+    LOG(ERROR) << "Failed getpeername: " << grpc_core::StrError(errno);
+    goto close_and_error;
+  }
+#endif
+
   addr = EventEngine::ResolvedAddress(peer_addr.address(), len);
   return fd;
 
