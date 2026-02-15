@@ -1,6 +1,6 @@
 [submodule "third_party/abseil-cpp"]
 	path = third_party/abseil-cpp
-	url = https://github.com/abseil/abseil-cpp.git
+	url = https://github.com/qnx-ports/abseil-cpp.git
 [submodule "third_party/benchmark"]
 	path = third_party/benchmark
 	url = https://github.com/google/benchmark
@@ -30,7 +30,7 @@
 	url = https://github.com/open-telemetry/opentelemetry-proto.git
 [submodule "third_party/protobuf"]
 	path = third_party/protobuf
-	url = https://github.com/protocolbuffers/protobuf.git
+	url = https://github.com/qnx-ports/protobuf.git
 [submodule "third_party/protoc-gen-validate"]
 	path = third_party/protoc-gen-validate
 	url = https://github.com/envoyproxy/protoc-gen-validate.git
