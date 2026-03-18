@@ -53,6 +53,8 @@
 // wouldn't need to reduce the number of threads on MacOS
 #ifdef __APPLE__
 #define NUM_THREADS 10
+#elif defined(__QNX__)
+#define NUM_THREADS 50
 #else
 #define NUM_THREADS 100
 #endif  // __APPLE

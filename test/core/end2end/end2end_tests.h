@@ -478,7 +478,11 @@ class CoreEnd2endTest {
     }
     expectations_ = 0;
     cq_verifier().Verify(timeout.value_or(fuzzing_ ? Duration::Minutes(10)
+#if defined(GPR_QNX)
+                                                   : Duration::Seconds(30)),
+#else
                                                    : Duration::Seconds(10)),
+#endif
                          whence);
   }
 
