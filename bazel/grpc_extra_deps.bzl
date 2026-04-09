@@ -3,7 +3,6 @@
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 load("@upb//bazel:workspace_deps.bzl", "upb_deps")
 load("@envoy_api//bazel:repositories.bzl", "api_dependencies")
-load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 load("@build_bazel_rules_apple//apple:repositories.bzl", "apple_rules_dependencies")
 load("@build_bazel_apple_support//lib:repositories.bzl", "apple_support_dependencies")
 
@@ -31,9 +30,6 @@ def grpc_extra_deps():
     upb_deps()
 
     api_dependencies()
-
-    go_rules_dependencies()
-    go_register_toolchains()
 
     apple_rules_dependencies()
 
